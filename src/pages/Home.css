@@ -967,17 +967,12 @@ home-hero {
   object-position: center top;
 }
 
+/* Smooth left-to-right slide transition (no fade/opacity) */
 .home-hero__slide {
-  opacity: 0;
   z-index: 0;
-  transition: opacity 1.35s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity;
+  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
   pointer-events: none;
-}
-
-.home-hero__slide.is-active {
-  opacity: 1;
-  z-index: 1;
 }
 
 /* Light, airy overlay so the text stays readable without hiding the

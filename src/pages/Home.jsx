@@ -56,13 +56,13 @@ export default function Home() {
         : (i - 1 + lifestyleImages.length) % lifestyleImages.length
     );
 
-  // Hero background auto-change
+  // Hero background auto-change — every 1.5s, sliding left-to-right
   useEffect(() => {
     const heroInterval = window.setInterval(() => {
       setActiveHeroImage(
         (currentImage) => (currentImage + 1) % heroImages.length
       );
-    }, 5000);
+    }, 1500);
 
     return () => window.clearInterval(heroInterval);
   }, []);
@@ -106,11 +106,10 @@ export default function Home() {
               key={image}
               src={image}
               alt=""
-              className={
-                index === activeHeroImage
-                  ? 'home-hero__slide is-active'
-                  : 'home-hero__slide'
-              }
+              className="home-hero__slide"
+              style={{
+                transform: `translateX(${(activeHeroImage - index) * 100}%)`,
+              }}
               loading={index === 0 ? 'eager' : 'lazy'}
               fetchPriority={index === 0 ? 'high' : 'auto'}
             />
