@@ -1,37 +1,266 @@
 .section-divider {
+  position: relative;
+  width: 100%;
+  /* Pull into the generous top/bottom padding that surrounding ".section"
+     blocks already carry (--space-2xl), so the divider doesn't look like
+     it's floating in a big empty gap. */
+  margin-block: calc(var(--space-2xl) * -0.62);
+}
+
+.section-divider__stage {
+  position: relative;
+  width: 100%;
+  height: clamp(120px, 15vw, 200px);
+  overflow: hidden;
+  background: var(--color-cream);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.section-divider.is-visible .section-divider__stage {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Right-side background photo ---------- */
+.section-divider__photo {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.55;
+  clip-path: polygon(34% 0%, 100% 0%, 100% 100%, 16% 100%);
+  filter: saturate(1.05) contrast(1.03) brightness(1.02);
+}
+
+/* Thin gold frame hugging the visible edge of the photo, so it reads as a
+   deliberate "framed" panel rather than a washed-out background. */
+.section-divider__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(34% 0%, 100% 0%, 100% 100%, 16% 100%);
+  box-shadow: inset 0 3px 0 rgba(201, 162, 39, 0.55),
+    inset 0 -3px 0 rgba(201, 162, 39, 0.55);
+}
+
+.section-divider__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-cream) 0%,
+    rgba(247, 243, 234, 0.92) 14%,
+    rgba(247, 243, 234, 0.55) 26%,
+    rgba(247, 243, 234, 0.12) 38%,
+    transparent 52%
+  );
+}
+
+/* Soft gold wash over the photo itself, keeps it in the site's palette
+   instead of looking like a plain unrelated stock image. */
+.section-divider__scrim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(201, 162, 39, 0.1),
+    rgba(201, 162, 39, 0) 30%,
+    rgba(201, 162, 39, 0) 70%,
+    rgba(15, 36, 25, 0.12)
+  );
+}
+
+/* ---------- Faint concentric arcs, left ---------- */
+
+.section-divider__arcs {
+  position: absolute;
+  left: -6%;
+  top: -20%;
+  width: 60%;
+  height: 140%;
+  color: var(--color-ink);
+  opacity: 0.06;
+}
+
+/* ---------- Diagonal gold divider line ---------- */
+
+.section-divider__diagonal {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.section-divider__diagonal line {
+  stroke: var(--color-gold);
+  stroke-width: 0.45;
+  opacity: 0.85;
+}
+
+/* ---------- Row: left nav / center title / right nav ---------- */
+
+.section-divider__row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  gap: clamp(0.75rem, 3vw, 2rem);
+}
+
+/* ---------- Left / right nav links ---------- */
+
+.section-divider__nav {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.section-divider__nav--right {
+  flex-direction: row-reverse;
+}
+
+.section-divider__nav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: var(--space-md) 0;
+  width: clamp(30px, 3.4vw, 42px);
+  height: clamp(30px, 3.4vw, 42px);
+  border-radius: 50%;
+  border: 1px solid var(--color-border-gold);
+  color: var(--color-gold);
+  flex-shrink: 0;
+  background: rgba(247, 243, 234, 0.7);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-.section-divider__line {
-  width: 60px;
+.section-divider__nav:hover .section-divider__nav-icon {
+  background: var(--color-gold);
+  color: var(--color-white);
+  border-color: var(--color-gold);
+}
+
+.section-divider__nav-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  display: none;
+}
+
+.section-divider__nav-line {
+  width: clamp(24px, 4vw, 70px);
   height: 1px;
   background: var(--color-border-gold);
 }
 
-.section-divider__mark {
+@media (min-width: 560px) {
+  .section-divider__nav-text {
+    display: inline;
+  }
+}
+
+/* ---------- Center title block ---------- */
+
+.section-divider__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.3rem, 1vw, 0.55rem);
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.section-divider__ornament {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
+  gap: clamp(0.35rem, 1vw, 0.6rem);
+}
+
+.section-divider__ornament-line {
+  width: clamp(30px, 5vw, 70px);
+  height: 1px;
+  background: var(--color-border-gold);
+}
+
+.section-divider__ornament-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.section-divider__ornament-mark {
+  width: 6px;
+  height: 6px;
   border: 1px solid var(--color-gold);
   transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.section-divider__leaf {
+  width: clamp(20px, 2.4vw, 28px);
+  height: auto;
   color: var(--color-gold);
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.section-divider__title {
   font-family: var(--font-display);
-  font-size: 0.62rem;
-  letter-spacing: 0.02em;
+  font-size: clamp(1.5rem, 4.4vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  white-space: nowrap;
+  color: var(--color-gold);
+  background: linear-gradient(
+    180deg,
+    var(--color-gold-light) 0%,
+    var(--color-gold) 45%,
+    #8a660f 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(201, 162, 39, 0.28));
 }
 
-.section-divider__mark::before {
-  content: 'SGF';
-  transform: rotate(-45deg);
-  display: block;
-}
+@media (max-width: 640px) {
+  .section-divider {
+    margin-block: calc(var(--space-xl) * -0.55);
+  }
 
-.section-divider__mark {
-  font-size: 0;
+  .section-divider__title {
+    font-size: clamp(1.3rem, 6.5vw, 1.8rem);
+    white-space: normal;
+    text-align: center;
+  }
+
+  .section-divider__ornament-line {
+    width: 20px;
+  }
+
+  .section-divider__arcs {
+    opacity: 0.04;
+  }
+
+  .section-divider__photo {
+    opacity: 0.4;
+  }
 }

@@ -929,8 +929,9 @@ home-hero {
     overflow-x: auto;
   }
 }
+
 /* ========================================================================
-   FINAL PREMIUM HERO + SMOOTH BACKGROUND CAROUSEL OVERRIDES
+   FINAL PREMIUM HERO — LIGHT THEME + FULL IMAGE ON ALL DEVICES
    Keep this block at the END of Home.css
    ======================================================================== */
 
@@ -942,7 +943,7 @@ home-hero {
   overflow: hidden;
   isolation: isolate;
   padding: 0;
-  background: #061912;
+  background: linear-gradient(180deg, #fbf8f1 0%, #f3ecd9 100%);
 }
 
 .home-hero__bg {
@@ -950,9 +951,11 @@ home-hero {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: #061912;
+  background: linear-gradient(180deg, #fbf8f1 0%, #f3ecd9 100%);
 }
 
+/* object-fit: cover fills the entire hero edge-to-edge (no side gaps),
+   positioned so the tower stays fully in frame on wide screens. */
 .home-hero__bg img,
 .home-hero__slide {
   position: absolute;
@@ -961,46 +964,37 @@ home-hero {
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: 50% center;
+  object-position: center top;
 }
 
 .home-hero__slide {
   opacity: 0;
   z-index: 0;
-  transform: scale(1.06);
-  transition:
-    opacity 1.35s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 7s ease-out;
-  will-change: opacity, transform;
+  transition: opacity 1.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
   pointer-events: none;
 }
 
 .home-hero__slide.is-active {
   opacity: 1;
   z-index: 1;
-  transform: scale(1);
 }
 
+/* Light, airy overlay so the text stays readable without hiding the
+   building behind a dark panel. */
 .home-hero__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(3, 23, 16, 0.94) 0%,
-      rgba(3, 25, 18, 0.82) 28%,
-      rgba(3, 23, 17, 0.48) 52%,
-      rgba(3, 18, 14, 0.22) 72%,
-      rgba(3, 16, 12, 0.38) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.08) 0%,
-      rgba(0, 0, 0, 0.04) 55%,
-      rgba(0, 0, 0, 0.58) 100%
-    );
+  background: linear-gradient(
+    90deg,
+    rgba(251, 248, 241, 0.96) 0%,
+    rgba(251, 248, 241, 0.82) 26%,
+    rgba(251, 248, 241, 0.35) 50%,
+    rgba(251, 248, 241, 0.12) 68%,
+    rgba(251, 248, 241, 0.28) 100%
+  );
 }
 
 .home-hero__inner {
@@ -1023,31 +1017,31 @@ home-hero {
 .home-hero__project {
   display: block;
   margin-bottom: 1rem;
-  color: #e5b62a;
+  color: #b3860f;
   font-family: var(--font-display);
   font-size: clamp(0.8rem, 1.05vw, 0.96rem);
   font-weight: 700;
   line-height: 1.4;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.25);
+  text-shadow: none;
 }
 
 .home-hero__text h1 {
   max-width: 760px;
   margin: 0 0 1.3rem;
-  color: #fff;
+  color: #10271e;
   font-family: var(--font-display);
   font-size: clamp(3.3rem, 5.1vw, 5.65rem);
   font-weight: 500;
   line-height: 0.98;
   letter-spacing: -0.045em;
   text-wrap: balance;
-  text-shadow: 0 8px 34px rgba(0, 0, 0, 0.3);
+  text-shadow: none;
 }
 
 .home-hero__text h1 .text-accent {
-  color: #e4b527;
+  color: #c9a227;
   font-style: italic;
   font-weight: 500;
 }
@@ -1055,10 +1049,10 @@ home-hero {
 .home-hero__text p {
   max-width: 620px;
   margin: 0 0 2rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: #47564c;
   font-size: clamp(0.98rem, 1.15vw, 1.08rem);
   line-height: 1.75;
-  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.24);
+  text-shadow: none;
 }
 
 .home-hero__actions {
@@ -1097,16 +1091,15 @@ home-hero {
 }
 
 .home-hero__actions .btn:nth-child(2) {
-  border: 1px solid rgba(255, 255, 255, 0.52);
-  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 36, 25, 0.18);
+  background: #ffffff;
   color: #132a20;
-  box-shadow: 0 15px 34px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 26px rgba(15, 36, 25, 0.1);
 }
 
 .home-hero__actions .btn:nth-child(2):hover {
-  border-color: #fff;
-  background: #fff;
+  border-color: #c9a227;
+  background: #fffdf6;
 }
 
 .home-hero__slider-dots {
@@ -1123,7 +1116,7 @@ home-hero {
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(15, 36, 25, 0.22);
   cursor: pointer;
   transition:
     width 0.35s ease,
@@ -1132,13 +1125,13 @@ home-hero {
 }
 
 .home-hero__slider-dot:hover {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(15, 36, 25, 0.4);
   transform: scale(1.12);
 }
 
 .home-hero__slider-dot.is-active {
   width: 30px;
-  background: #e1b326;
+  background: #c9a227;
 }
 
 .home-hero__floating-card {
@@ -1147,27 +1140,26 @@ home-hero {
   gap: 0;
   padding: 2rem 2.05rem 1.85rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(15, 36, 25, 0.08);
   border-top: 4px solid #d9a916;
   border-radius: 24px;
   background:
     radial-gradient(
       circle at 100% 0%,
-      rgba(224, 180, 48, 0.2),
+      rgba(224, 180, 48, 0.16),
       transparent 34%
     ),
-    rgba(250, 249, 245, 0.94);
+    #ffffff;
   box-shadow:
-    0 32px 85px rgba(0, 0, 0, 0.34),
+    0 24px 60px rgba(15, 36, 25, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(24px);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .home-hero__floating-card:hover {
   transform: translateY(-5px);
   box-shadow:
-    0 40px 95px rgba(0, 0, 0, 0.4),
+    0 30px 70px rgba(15, 36, 25, 0.16),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
@@ -1230,7 +1222,7 @@ home-hero {
   padding: 0.95rem;
   border: 1px solid rgba(18, 49, 37, 0.08);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.78);
+  background: #faf9f5;
   box-shadow: 0 8px 25px rgba(20, 43, 34, 0.06);
 }
 
@@ -1299,19 +1291,13 @@ home-hero {
     min-height: auto;
   }
 
-  .home-hero__slide,
-  .home-hero__bg img {
-    object-position: 58% center;
-  }
-
   .home-hero__overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(3, 23, 16, 0.84) 0%,
-        rgba(3, 23, 16, 0.58) 48%,
-        rgba(3, 23, 16, 0.92) 100%
-      );
+    background: linear-gradient(
+      180deg,
+      rgba(251, 248, 241, 0.88) 0%,
+      rgba(251, 248, 241, 0.6) 46%,
+      rgba(251, 248, 241, 0.94) 100%
+    );
   }
 
   .home-hero__inner {
@@ -1327,32 +1313,34 @@ home-hero {
   }
 }
 
-/* Mobile — building centred and visible */
+/* Mobile — full screen, edge-to-edge, no side gaps */
 @media (max-width: 768px) {
   .home-hero {
-    min-height: auto;
+    min-height: 100svh;
     align-items: flex-start;
+    background: linear-gradient(180deg, #fbf8f1 0%, #f3ecd9 100%);
   }
 
-  .home-hero__bg {
-    inset: 0;
+  .home-hero__bg,
+  .home-hero__slide {
+    width: 100%;
+    height: 100%;
   }
 
-  .home-hero__slide,
-  .home-hero__bg img {
+  .home-hero__bg img,
+  .home-hero__slide {
     object-fit: cover;
-    object-position: 58% center;
+    object-position: center top;
   }
 
   .home-hero__overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(2, 21, 14, 0.73) 0%,
-        rgba(2, 21, 14, 0.61) 43%,
-        rgba(2, 21, 14, 0.87) 72%,
-        rgba(2, 21, 14, 0.96) 100%
-      );
+    background: linear-gradient(
+      180deg,
+      rgba(251, 248, 241, 0.35) 0%,
+      rgba(251, 248, 241, 0.3) 40%,
+      rgba(251, 248, 241, 0.82) 68%,
+      rgba(251, 248, 241, 0.98) 100%
+    );
   }
 
   .home-hero__inner {
@@ -1379,7 +1367,6 @@ home-hero {
   .home-hero__text h1 {
     max-width: 470px;
     margin-bottom: 1.35rem;
-    color: #fff;
     font-size: clamp(3rem, 12.5vw, 4.4rem);
     line-height: 0.99;
     letter-spacing: -0.04em;
@@ -1388,7 +1375,6 @@ home-hero {
   .home-hero__text p {
     max-width: 500px;
     margin-bottom: 2rem;
-    color: rgba(255, 255, 255, 0.86);
     font-size: 0.96rem;
     line-height: 1.72;
   }
@@ -1438,12 +1424,6 @@ home-hero {
 }
 
 @media (max-width: 520px) {
-  .home-hero__slide,
-  .home-hero__bg img {
-    /* Tower shifted slightly right so its centre sits behind the headline */
-    object-position: 60% center;
-  }
-
   .home-hero__inner {
     padding-top: 6.7rem;
     padding-bottom: 3rem;
@@ -1486,11 +1466,6 @@ home-hero {
 }
 
 @media (max-width: 390px) {
-  .home-hero__slide,
-  .home-hero__bg img {
-    object-position: 62% center;
-  }
-
   .home-hero__text h1 {
     font-size: 2.5rem;
   }
@@ -1507,46 +1482,4 @@ home-hero {
     transition: none !important;
     animation: none !important;
   }
-
-  .home-hero__slide {
-    transform: none;
-  }
-
-  /* =========================================================
-   FINAL MOBILE HERO BUILDING CENTER FIX
-   Keep this at the absolute end of Home.css
-   ========================================================= */
-
-@media (max-width: 768px) {
-  .home-hero {
-    min-height: 100svh;
-    background: #061912;
-  }
-
-  .home-hero__bg,
-  .home-hero__slide {
-    width: 100%;
-    height: 100%;
-  }
-
-  .home-hero__slide,
-  .home-hero__bg img {
-    object-fit: cover;
-    object-position: center center !important;
-  }
-}
-
-@media (max-width: 520px) {
-  .home-hero__slide,
-  .home-hero__bg img {
-    object-position: 50% center !important;
-  }
-}
-
-@media (max-width: 390px) {
-  .home-hero__slide,
-  .home-hero__bg img {
-    object-position: 50% center !important;
-  }
-}
 }

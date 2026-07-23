@@ -5,11 +5,8 @@ import './PageHero.css';
  * PageHero
  *
  * Two display modes:
- * 1. Side-by-side (default) — pass `imageSrc` + `imageLabel`, image renders
- *    in a boxed panel next to the text (original behaviour).
- * 2. Full background — pass `bgImage`, the image fills the entire hero
- *    section edge-to-edge with a dark overlay and the text sits on top.
- *    Use this for the About page to match the PDF design.
+ * 1. Side-by-side — imageSrc/imageVideo ke saath.
+ * 2. Full background — bgImage ke saath.
  */
 export default function PageHero({
   eyebrow,
@@ -20,51 +17,76 @@ export default function PageHero({
   imageSrc,
   imageVideo,
   bgImage,
-  actions,
+  actions = [],
   children,
 }) {
+  const renderActions = () => {
+    if (!actions.length) return null;
+
+    return (
+      <div className="page-hero__actions">
+        {actions.map((action) =>
+          action.onClick ? (
+            <button
+              key={action.label}
+              type="button"
+              className={`btn btn--md btn--${action.variant || 'primary'}`}
+              onClick={action.onClick}
+            >
+              {action.label}
+            </button>
+          ) : (
+            <a
+              key={action.label}
+              href={action.href || '#'}
+              download={action.download}
+              target={action.external ? '_blank' : undefined}
+              rel={action.external ? 'noopener noreferrer' : undefined}
+              className={`btn btn--md btn--${action.variant || 'primary'}`}
+            >
+              {action.label}
+            </a>
+          )
+        )}
+      </div>
+    );
+  };
+
   if (bgImage) {
     return (
       <section
         className="page-hero page-hero--bg"
         style={{
-          backgroundImage: `linear-gradient(180deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.75) 100%), url(${bgImage})`,
+          backgroundImage: `
+            radial-gradient(
+              ellipse 65% 55% at 50% 45%,
+              rgba(0, 0, 0, 0.32) 0%,
+              rgba(0, 0, 0, 0) 70%
+            ),
+            url("${bgImage}")
+          `,
         }}
       >
         <div className="container page-hero__bg-inner">
           <div className="page-hero__text page-hero__text--on-bg">
-            {eyebrow && <span className="eyebrow eyebrow--light">{eyebrow}</span>}
-            <h1>
-              {title} {accent && <span className="text-accent">{accent}</span>}
-            </h1>
-            {description && <p>{description}</p>}
-            {actions && actions.length > 0 && (
-              <div className="page-hero__actions">
-                {actions.map((a) =>
-                  a.onClick ? (
-                    <button
-                      key={a.label}
-                      type="button"
-                      className={`btn btn--${a.variant || 'primary'}`}
-                      onClick={a.onClick}
-                    >
-                      {a.label}
-                    </button>
-                  ) : (
-                    <a
-                      key={a.label}
-                      href={a.href || '#'}
-                      download={a.download}
-                      target={a.external ? '_blank' : undefined}
-                      rel={a.external ? 'noopener noreferrer' : undefined}
-                      className={`btn btn--${a.variant || 'primary'}`}
-                    >
-                      {a.label}
-                    </a>
-                  )
-                )}
-              </div>
+            {eyebrow && (
+              <span className="eyebrow eyebrow--light">{eyebrow}</span>
             )}
+
+            <h1>
+              {title}
+              {accent && (
+                <>
+                  {' '}
+                  <span className="text-accent">{accent}</span>
+                </>
+              )}
+            </h1>
+
+            {description && <p>{description}</p>}
+
+            {renderActions()}
+
             {children}
           </div>
         </div>
@@ -77,38 +99,24 @@ export default function PageHero({
       <div className="container page-hero__inner">
         <div className="page-hero__text">
           {eyebrow && <span className="eyebrow">{eyebrow}</span>}
+
           <h1>
-            {title} {accent && <span className="text-accent">{accent}</span>}
+            {title}
+            {accent && (
+              <>
+                {' '}
+                <span className="text-accent">{accent}</span>
+              </>
+            )}
           </h1>
+
           {description && <p>{description}</p>}
-          {actions && actions.length > 0 && (
-            <div className="page-hero__actions">
-              {actions.map((a) =>
-                a.onClick ? (
-                  <button
-                    key={a.label}
-                    type="button"
-                    className={`btn btn--${a.variant || 'primary'}`}
-                    onClick={a.onClick}
-                  >
-                    {a.label}
-                  </button>
-                ) : (
-                  <a
-                    key={a.label}
-                    href={a.href || '#'}
-                    download={a.download}
-                    target={a.external ? '_blank' : undefined}
-                    rel={a.external ? 'noopener noreferrer' : undefined}
-                    className={`btn btn--${a.variant || 'primary'}`}
-                  >
-                    {a.label}
-                  </a>
-                )
-              )}
-            </div>
-          )}
+
+          {renderActions()}
+
+          {children}
         </div>
+
         <div className="page-hero__image">
           {imageVideo ? (
             <video
@@ -119,10 +127,15 @@ export default function PageHero({
               loop
               playsInline
               preload="metadata"
-              aria-label={imageLabel}
+              aria-label={imageLabel || 'Page hero video'}
             />
           ) : (
-            <ImagePlaceholder label={imageLabel} src={imageSrc} alt={imageLabel} ratio="6/5" />
+            <ImagePlaceholder
+              label={imageLabel}
+              src={imageSrc}
+              alt={imageLabel || 'Page hero'}
+              ratio="6/5"
+            />
           )}
         </div>
       </div>

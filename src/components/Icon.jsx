@@ -39,6 +39,9 @@ const ICONS = {
   amenities: 'M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21 8 13.5 2.5 9h7z',
   connect: 'M4 20l6-16 4 10 3-6 3 12 M4 20h16',
   design: 'M3 17l5-5 3 3 7-7 M13 3h5v5 M4 20h16',
+
+  chevronDown: 'M6 9l6 6 6-6',
+  chevronRight: 'M9 5l7 7-7 7',
 };
 
 export default function Icon({ name, size = 20, className }) {

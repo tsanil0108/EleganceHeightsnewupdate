@@ -8,7 +8,7 @@ import './Navbar.css';
 
 const sectionIds = navLinks.map((link) => link.path.replace('#', ''));
 
-const BROCHURE_PATH = '/images/Elegance-Heights-Brochure.pdf';
+const BROCHURE_PATH = '/images/Elegance-Heights-Malad-Brochure.pdf';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -143,7 +143,7 @@ export default function Navbar() {
 
             <Button
               href={BROCHURE_PATH}
-              download="Elegance-Heights-Brochure.pdf"
+              download="Elegance-Heights-Malad-Brochure.pdf"
               variant="primary"
               size="sm"
               onClick={() => setOpen(false)}
@@ -171,7 +171,7 @@ export default function Navbar() {
 
           <Button
             href={BROCHURE_PATH}
-            download="Elegance-Heights-Brochure.pdf"
+            download="Elegance-Heights-Malad-Brochure.pdf"
             variant="primary"
             size="sm"
           >

@@ -31,12 +31,7 @@ const conveniences = [
     icon: 'M5 3h14v18H5zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM8 6h.01',
     description: 'Professional wash, dry and fold — pickup and delivery from your floor.',
   },
-  {
-    title: 'Pharmacy',
-    image: '/images/Facade.png',
-    icon: 'M12 7v10M7 12h10M5 5h14v14H5z',
-    description: 'Round-the-clock chemist for medicines and health essentials on-site.',
-  },
+
   {
     title: 'Daily Grocery',
     image: '/images/InfinityPool.png',

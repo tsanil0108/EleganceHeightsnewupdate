@@ -47,8 +47,8 @@ export default function Project() {
           {
             label: 'Download Brochure',
             variant: 'primary',
-            href: '/images/Elegance-Heights-Brochure.pdf',
-            download: 'Elegance-Heights-Brochure.pdf',
+            href: '/images/Elegance-Heights-Malad-Brochure.pdf',
+            download: 'Elegance-Heights-Malad-Brochure.pdf',
           },
           {
             label: 'Book Site Visit',
