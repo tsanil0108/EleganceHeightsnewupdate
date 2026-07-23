@@ -248,7 +248,7 @@ export const projectSpecs = [
   { label: 'Configuration', value: '1 & 2 BHK Residences' },
   { label: 'Towers', value: '1 Tower, G+40 Storeys' },
   { label: 'Total Units', value: '224 Homes' },
-  { label: 'Possession', value: 'On Request' },
+  { label: 'Possession', value: 'Dec 2029' },
   { label: 'RERA No.', value: 'P51800034810' },
 ];
 
