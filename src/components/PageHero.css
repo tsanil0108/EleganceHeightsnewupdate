@@ -1,0 +1,199 @@
+.page-hero {
+  padding: var(--space-xl) 0 var(--space-lg);
+}
+
+.page-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.page-hero__text h1 {
+  font-size: var(--fs-h1);
+  margin-bottom: var(--space-sm);
+}
+
+.page-hero__text p {
+  font-size: 1.05rem;
+  max-width: 480px;
+}
+
+.page-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+@media (max-width: 900px) {
+  .page-hero__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .page-hero__image {
+    order: -1;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Full background-image hero (About page)                          */
+/* ---------------------------------------------------------------- */
+
+.page-hero--bg {
+  width: 100%;
+  min-height: 62vh;
+  display: flex;
+  align-items: center;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+
+  padding: var(--space-xl) 0;
+}
+
+.page-hero__bg-inner {
+  display: flex;
+  justify-content: center;
+}
+
+.page-hero__text--on-bg {
+  text-align: center;
+  max-width: 720px;
+  color: var(--color-white);
+}
+
+.page-hero__text--on-bg .eyebrow--light {
+  color: var(--color-gold);
+}
+
+.page-hero__text--on-bg h1 {
+  color: var(--color-white);
+  font-size: var(--fs-h1);
+  margin-bottom: var(--space-sm);
+}
+
+.page-hero__text--on-bg p {
+  color: rgba(247, 243, 234, 0.9);
+  font-size: 1.05rem;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.page-hero__text--on-bg .page-hero__actions {
+  justify-content: center;
+}
+
+/* Entrance animation: hero text fades + slides up on page load. */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-hero--bg {
+  animation: hero-bg-fade-in 0.8s ease both;
+}
+
+@keyframes hero-bg-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.page-hero__text--on-bg .eyebrow--light,
+.page-hero__text--on-bg h1,
+.page-hero__text--on-bg p,
+.page-hero__text--on-bg .page-hero__actions {
+  opacity: 0;
+  animation: hero-fade-up 0.7s ease forwards;
+}
+
+.page-hero__text--on-bg .eyebrow--light { animation-delay: 0.15s; }
+.page-hero__text--on-bg h1 { animation-delay: 0.3s; }
+.page-hero__text--on-bg p { animation-delay: 0.45s; }
+.page-hero__text--on-bg .page-hero__actions { animation-delay: 0.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero--bg,
+  .page-hero__text--on-bg .eyebrow--light,
+  .page-hero__text--on-bg h1,
+  .page-hero__text--on-bg p,
+  .page-hero__text--on-bg .page-hero__actions {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Responsive breakpoints for the background hero ---- */
+
+@media (min-width: 1440px) {
+  .page-hero--bg {
+    min-height: 68vh;
+  }
+}
+
+@media (max-width: 900px) {
+  .page-hero--bg {
+    min-height: 52vh;
+    padding: var(--space-lg) 0;
+    background-attachment: scroll;
+  }
+  .page-hero__text--on-bg p {
+    font-size: 0.98rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .page-hero--bg {
+    min-height: 46vh;
+    padding: var(--space-md) 0;
+  }
+  .page-hero__text--on-bg {
+    padding: 0 var(--space-sm);
+  }
+  .page-hero__text--on-bg h1 {
+    font-size: clamp(1.6rem, 7vw, 2.1rem);
+  }
+  .page-hero__text--on-bg p {
+    font-size: 0.9rem;
+  }
+  .page-hero__text--on-bg .page-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .page-hero__text--on-bg .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .page-hero--bg {
+    min-height: 42vh;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .page-hero--bg {
+    min-height: 80vh;
+    padding: var(--space-md) 0;
+  }
+}
+
+.page-hero__video {
+  width: 100%;
+  aspect-ratio: 6 / 5;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  background: #12181f;
+}

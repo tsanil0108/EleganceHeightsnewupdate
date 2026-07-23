@@ -1,0 +1,413 @@
+/* ------------------------------------------------------------------ */
+/* RERA badge strip, sits right under the hero                        */
+/* ------------------------------------------------------------------ */
+
+.project-rera {
+  display: flex;
+  justify-content: center;
+  margin-top: calc(var(--space-md) * -1);
+  margin-bottom: var(--space-md);
+  position: relative;
+  z-index: 2;
+}
+
+.project-rera__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-sm);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.project-rera__badge:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-gold);
+}
+
+.project-rera__badge svg {
+  color: var(--color-gold);
+}
+
+/* ------------------------------------------------------------------ */
+/* Quick spec facts grid                                               */
+/* ------------------------------------------------------------------ */
+
+.project-specs__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  background: var(--color-ink);
+  border-radius: var(--radius-md);
+}
+
+.project-specs__item {
+  padding: var(--space-md) var(--space-sm);
+  border-right: 1px solid rgba(247, 243, 234, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--color-cream);
+  position: relative;
+  z-index: 1;
+  cursor: default;
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-specs__grid.is-visible .project-specs__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-specs__grid.is-visible .project-specs__item:hover {
+  transform: translateY(-6px) scale(1.04);
+  background: var(--color-ink-light);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+  z-index: 2;
+  border-radius: var(--radius-sm);
+}
+
+.project-specs__item:hover strong {
+  color: var(--color-gold-light);
+}
+
+.project-specs__item:last-child {
+  border-right: none;
+}
+
+.project-specs__item span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(247, 243, 234, 0.55);
+}
+
+.project-specs__item strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--color-gold);
+}
+
+/* ------------------------------------------------------------------ */
+/* Why Elegance Heights                                                */
+/* ------------------------------------------------------------------ */
+
+.project-highlights__inner {
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.project-highlights__text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.project-highlights__text.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-highlights__text h2 {
+  font-size: var(--fs-h2);
+  margin: var(--space-sm) 0 var(--space-md);
+}
+
+.project-highlights__text > p {
+  max-width: 480px;
+  margin-bottom: var(--space-md);
+}
+
+.project-highlights__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: var(--space-lg);
+}
+
+.project-highlights__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.project-highlights__text.is-visible .project-highlights__list li {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.project-highlights__check {
+  color: var(--color-gold);
+  flex-shrink: 0;
+  margin-top: 0.15em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Master Plan — full site layout image                               */
+/* ------------------------------------------------------------------ */
+
+.project-masterplan__intro {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--color-text-muted);
+}
+
+.project-masterplan__frame {
+  margin-top: var(--space-lg);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  box-shadow: var(--shadow-soft);
+
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+}
+
+.project-masterplan__frame.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.project-masterplan__frame:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.project-masterplan__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+.project-masterplan__note {
+  margin-top: var(--space-sm);
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-masterplan__frame {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Floor plan preview grid                                            */
+/* ------------------------------------------------------------------ */
+
+.floor-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Amenities snapshot                                                  */
+/* ------------------------------------------------------------------ */
+
+.project-amenities-teaser__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+}
+
+.project-amenities-teaser__item {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  opacity: 0;
+  transform: translateY(16px) scale(0.97);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-amenities-teaser__grid.is-visible .project-amenities-teaser__item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.project-amenities-teaser__item:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-3px);
+}
+
+.project-amenities-teaser__more {
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Project video — poster with pulsing play button                    */
+/* ------------------------------------------------------------------ */
+
+.project-video__frame {
+  position: relative;
+  aspect-ratio: 21/9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-ink);
+
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.project-video__frame.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.project-video__poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-video__el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--color-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, background 0.25s ease;
+  z-index: 1;
+}
+
+.project-video__play svg {
+  margin-left: 3px;
+}
+
+.project-video__play:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: var(--color-gold-light);
+}
+
+.project-video__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  animation: video-pulse 2.2s ease-out infinite;
+}
+
+@keyframes video-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-video__pulse {
+    animation: none;
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive breakpoints                                             */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+  .project-specs__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .project-specs__item:nth-child(3) {
+    border-right: none;
+  }
+  .project-highlights__inner {
+    grid-template-columns: 1fr;
+  }
+  .floor-plan-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .project-amenities-teaser__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .project-video__frame {
+    aspect-ratio: 16/9;
+  }
+}
+
+@media (max-width: 560px) {
+  .project-specs__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .project-specs__item:nth-child(2n) {
+    border-right: none;
+  }
+  .floor-plan-grid {
+    grid-template-columns: 1fr;
+  }
+  .project-video__frame {
+    aspect-ratio: 4/3;
+  }
+  .project-video__play {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion: disable all entrance transitions on this page       */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-specs__item,
+  .project-highlights__text,
+  .project-highlights__list li,
+  .project-amenities-teaser__item,
+  .project-video__frame {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

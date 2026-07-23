@@ -1,0 +1,357 @@
+.amenities-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: var(--space-lg);
+}
+
+.amenities-chip {
+  border: 1px solid rgba(18, 24, 31, 0.15);
+  background: transparent;
+  color: var(--color-ink);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+
+  /* Entrance: chips fade/slide up on page load, staggered via inline
+     animationDelay set per-button in Amenities.jsx */
+  opacity: 0;
+  animation: chipFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes chipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.amenities-chip:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(201, 162, 39, 0.15);
+}
+
+.amenities-chip:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(201, 162, 39, 0.18);
+}
+
+.amenities-chip--active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.amenities-chip--active:hover {
+  color: var(--color-ink);
+  transform: translateY(-2px);
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-auto-flow: dense;
+  gap: var(--space-md);
+}
+
+.amenities-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  font: inherit;
+  cursor: zoom-in;
+  box-shadow: var(--shadow-soft);
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.amenities-card:not(.is-visible) {
+  opacity: 0.001;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  transition-delay: calc(var(--i) * 60ms);
+}
+
+.amenities-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  transition-delay: calc(var(--i) * 60ms);
+}
+
+.amenities-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-gold);
+  box-shadow: 0 20px 40px rgba(18, 24, 31, 0.2);
+}
+
+.amenities-card--feature {
+  grid-column: span 2;
+}
+
+.amenities-card .img-placeholder__img {
+  transition: transform 0.6s ease;
+}
+
+.amenities-card:hover .img-placeholder__img {
+  transform: scale(1.08);
+}
+
+.amenities-card__expand {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.5);
+  color: var(--color-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity var(--transition), transform var(--transition), background var(--transition);
+}
+
+.amenities-card:hover .amenities-card__expand,
+.amenities-card:focus-visible .amenities-card__expand {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.amenities-card__expand:hover {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.amenities-card__level {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-cream);
+  background: rgba(18, 24, 31, 0.55);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  backdrop-filter: blur(2px);
+  transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease;
+}
+
+.amenities-card:hover .amenities-card__level {
+  background: var(--color-gold);
+  color: var(--color-ink);
+  transform: scale(1.06);
+}
+
+.amenities-card__overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.1rem 1.1rem 1rem;
+  background: linear-gradient(180deg, rgba(18, 24, 31, 0) 0%, rgba(18, 24, 31, 0.88) 70%);
+  color: var(--color-cream);
+  transform: translateY(52%);
+  transition: transform var(--transition);
+}
+
+.amenities-card:hover .amenities-card__overlay,
+.amenities-card:focus-within .amenities-card__overlay {
+  transform: translateY(0);
+}
+
+.amenities-card__category {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+  font-weight: 600;
+  transition: color 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.amenities-card:hover .amenities-card__category {
+  color: var(--color-gold-light);
+  letter-spacing: 0.12em;
+}
+
+.amenities-card__overlay h3 {
+  color: var(--color-cream);
+  font-size: 1.05rem;
+  margin: 0.3rem 0 0.2rem;
+  transform: translateY(4px);
+  opacity: 0.92;
+  transition: transform 0.35s ease 0.05s, opacity 0.35s ease 0.05s;
+}
+
+.amenities-card:hover .amenities-card__overlay h3,
+.amenities-card:focus-within .amenities-card__overlay h3 {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.amenities-card__overlay p {
+  font-size: 0.82rem;
+  color: rgba(247, 243, 234, 0.75);
+  margin: 0;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity var(--transition) 0.1s, max-height var(--transition) 0.1s;
+}
+
+.amenities-card:hover .amenities-card__overlay p,
+.amenities-card:focus-within .amenities-card__overlay p {
+  opacity: 1;
+  max-height: 40px;
+}
+
+/* ============================================================
+   Hover pop-out preview
+   While the cursor rests on a card, the full (uncropped) image
+   pops out above the grid in a centered floating panel.
+   pointer-events: none so it never blocks the cursor or clicks —
+   clicking still opens the Lightbox as before.
+   ============================================================ */
+
+.amenities-hover-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 900; /* below the Lightbox, above everything else */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(18, 24, 31, 0.35) 0%, rgba(18, 24, 31, 0.55) 100%);
+  animation: hoverPreviewFade 0.25s ease forwards;
+}
+
+@keyframes hoverPreviewFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.amenities-hover-preview__panel {
+  position: relative;
+  max-width: min(880px, 90vw);
+  max-height: 80vh;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(18, 24, 31, 0.92);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(201, 162, 39, 0.35);
+  transform-origin: center;
+  animation: hoverPreviewPop 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes hoverPreviewPop {
+  from {
+    opacity: 0;
+    transform: scale(0.78) translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.amenities-hover-preview__panel img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(80vh - 3.2rem);
+  width: auto;
+  height: auto;
+  object-fit: contain; /* full image, no cropping */
+  margin: 0 auto;
+}
+
+.amenities-hover-preview__caption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.7rem 1.1rem 0.8rem;
+  background: linear-gradient(180deg, rgba(18, 24, 31, 0.4), rgba(18, 24, 31, 0.95));
+  color: var(--color-cream);
+}
+
+.amenities-hover-preview__caption span {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.amenities-hover-preview__caption strong {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* No hover pop-out on touch devices (also gated in JS via matchMedia) */
+@media (hover: none), (pointer: coarse) {
+  .amenities-hover-preview {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .amenities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .amenities-card--feature {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .amenities-grid {
+    grid-template-columns: 1fr;
+  }
+  .amenities-card--feature {
+    grid-column: span 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amenities-chip {
+    animation: none;
+    opacity: 1;
+  }
+
+  .amenities-card,
+  .amenities-card:not(.is-visible),
+  .amenities-card.is-visible,
+  .amenities-card__level,
+  .amenities-card__overlay,
+  .amenities-card__overlay h3,
+  .amenities-card__category,
+  .img-placeholder__img {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .amenities-hover-preview,
+  .amenities-hover-preview__panel {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,134 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  border-radius: var(--radius-md);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+  border: 1.5px solid transparent;
+  position: relative;
+}
+
+.btn--md {
+  padding: 0.85rem 1.9rem;
+  font-size: var(--fs-small);
+}
+
+.btn--sm {
+  padding: 0.6rem 1.3rem;
+  font-size: 0.8rem;
+}
+
+.btn--lg {
+  padding: 1.05rem 2.4rem;
+  font-size: 0.95rem;
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, var(--color-gold-light) 0%, var(--color-gold) 100%);
+  color: var(--color-ink);
+  box-shadow: 0 6px 18px rgba(201, 162, 39, 0.35);
+}
+
+.btn--primary:hover {
+  background: linear-gradient(180deg, var(--color-gold-light) 0%, var(--color-gold-light) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(201, 162, 39, 0.45);
+}
+
+.btn--primary:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(201, 162, 39, 0.35);
+}
+
+.btn--secondary {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  box-shadow: 0 6px 18px rgba(15, 36, 25, 0.25);
+}
+
+.btn--secondary:hover {
+  background: var(--color-ink-light);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(15, 36, 25, 0.35);
+}
+
+.btn--secondary:active {
+  transform: translateY(-1px);
+}
+
+/* Dark text/border — only ever use on light/cream backgrounds */
+.btn--outline {
+  background: var(--color-white);
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+  box-shadow: 0 4px 12px rgba(15, 36, 25, 0.08);
+}
+
+.btn--outline:hover {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(15, 36, 25, 0.24);
+}
+
+.btn--outline:active {
+  transform: translateY(-1px);
+}
+
+/* Light text/border — use on dark photo backgrounds / hero overlays.
+   Solid cream pill so it's always clearly visible regardless of how
+   bright/dark the underlying photo is. */
+.btn--outline-light {
+  background: rgba(247, 243, 234, 0.96);
+  color: var(--color-ink);
+  border-color: rgba(247, 243, 234, 0.96);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.btn--outline-light:hover {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-ink);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
+}
+
+.btn--outline-light:active {
+  transform: translateY(-1px);
+}
+
+/* Same look as outline-light — used for actions sitting on dark hero images */
+.btn--ghost {
+  background: rgba(247, 243, 234, 0.96);
+  color: var(--color-ink);
+  border-color: rgba(247, 243, 234, 0.96);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.btn--ghost:hover {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-ink);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
+}
+
+.btn--ghost:active {
+  transform: translateY(-1px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover {
+    transform: none;
+  }
+}

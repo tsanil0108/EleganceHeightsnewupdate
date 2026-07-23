@@ -1,0 +1,71 @@
+.about-values__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-md);
+}
+
+.about-values__card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+
+  /* Scroll-reveal: cards start faded/lowered, stagger in via inline
+     transitionDelay set per-card in About.jsx once .is-visible is added
+     to the parent grid. */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-values__grid.is-visible .about-values__card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-values__card:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-values__card {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .about-values__card:hover {
+    transform: none;
+  }
+}
+
+.about-values__card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-values__card p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .about-values__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .about-values__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .about-values__grid {
+    grid-template-columns: 1fr;
+  }
+}

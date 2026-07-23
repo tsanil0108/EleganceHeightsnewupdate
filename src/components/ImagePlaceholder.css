@@ -1,0 +1,36 @@
+.img-placeholder {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #E8E1D0 0%, #DCD3BC 100%);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.img-placeholder--photo {
+  background: var(--color-cream-dark);
+}
+
+.img-placeholder__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.img-placeholder__icon {
+  opacity: 0.55;
+}
+
+.img-placeholder__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  text-align: center;
+  padding: 0 1rem;
+}

@@ -1,0 +1,37 @@
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: var(--space-md) 0;
+}
+
+.section-divider__line {
+  width: 60px;
+  height: 1px;
+  background: var(--color-border-gold);
+}
+
+.section-divider__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--color-gold);
+  transform: rotate(45deg);
+  color: var(--color-gold);
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+}
+
+.section-divider__mark::before {
+  content: 'SGF';
+  transform: rotate(-45deg);
+  display: block;
+}
+
+.section-divider__mark {
+  font-size: 0;
+}

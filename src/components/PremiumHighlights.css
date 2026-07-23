@@ -1,0 +1,140 @@
+.premium-highlights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.premium-highlights__card {
+  position: relative;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md) var(--space-md);
+  transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.3s ease,
+    box-shadow 0.3s ease, background 0.3s ease;
+
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.premium-highlights.is-visible .premium-highlights__card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.premium-highlights__card:hover {
+  border-color: var(--color-gold);
+  box-shadow: 0 24px 48px rgba(15, 36, 25, 0.14);
+  transform: translateY(-6px);
+  background: linear-gradient(180deg, var(--color-white) 0%, var(--color-cream) 100%);
+}
+
+.premium-highlights__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-cream-dark);
+  color: var(--color-gold);
+  margin-bottom: var(--space-sm);
+  transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease;
+}
+
+.premium-highlights__card:hover .premium-highlights__icon {
+  background: var(--color-gold);
+  color: var(--color-white);
+  transform: scale(1.08) rotate(-6deg);
+}
+
+.premium-highlights__card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.premium-highlights__card p {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.premium-highlights__note {
+  margin-top: 0.6rem !important;
+  font-size: 0.72rem !important;
+  color: var(--color-text-muted);
+  opacity: 0.75;
+  font-style: italic;
+}
+
+.premium-highlights__badge {
+  position: absolute;
+  top: -12px;
+  right: var(--space-md);
+  background: var(--color-gold);
+  color: var(--color-ink);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(201, 162, 39, 0.35);
+}
+
+/* Featured card (valet parking) — spans two columns and gets a subtle
+   gold-outlined "signature" treatment so it reads as the standout USP. */
+.premium-highlights__card--featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--color-ink) 0%, var(--color-ink-light) 100%);
+  border-color: var(--color-gold);
+}
+
+.premium-highlights__card--featured h3 {
+  color: var(--color-white);
+}
+
+.premium-highlights__card--featured p {
+  color: rgba(247, 243, 234, 0.75);
+}
+
+.premium-highlights__card--featured .premium-highlights__icon {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.premium-highlights__card--featured:hover {
+  background: linear-gradient(135deg, var(--color-ink) 0%, var(--color-ink-light) 100%);
+  box-shadow: 0 24px 48px rgba(201, 162, 39, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .premium-highlights__card {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .premium-highlights__card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .premium-highlights {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .premium-highlights__card--featured {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .premium-highlights {
+    grid-template-columns: 1fr;
+  }
+  .premium-highlights__card--featured {
+    grid-column: span 1;
+  }
+}

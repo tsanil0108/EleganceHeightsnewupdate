@@ -1,0 +1,188 @@
+.gallery-filters {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.gallery-filter {
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--color-white);
+  color: var(--color-ink);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.gallery-filter:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-1px);
+}
+
+.gallery-filter:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.gallery-filter.is-active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* ---------- Thumbnail masonry grid ---------- */
+.gallery-grid {
+  columns: 3 240px;
+  column-gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.gallery-item {
+  position: relative;
+  display: block;
+  width: 100%;
+  break-inside: avoid;
+  margin-bottom: var(--space-sm);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: zoom-in;
+  background: none;
+  box-shadow: var(--shadow-soft);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item:not(.is-visible) {
+  opacity: 0.001;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  transition-delay: calc(var(--i) * 45ms);
+}
+
+.gallery-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  transition-delay: calc(var(--i) * 45ms);
+}
+
+.gallery-item .img-placeholder__img,
+.gallery-item > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.gallery-item:hover .img-placeholder__img,
+.gallery-item:hover > img,
+.gallery-item:focus-visible .img-placeholder__img,
+.gallery-item:focus-visible > img {
+  transform: scale(1.06);
+}
+
+.gallery-item:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.gallery-item__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.9rem 1rem 0.75rem;
+  background: linear-gradient(to top, rgba(15, 36, 25, 0.85), transparent);
+  color: var(--color-cream);
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-item__caption,
+.gallery-item:focus-visible .gallery-item__caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item__category {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+  font-weight: 700;
+}
+
+.gallery-item__expand {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.5);
+  color: var(--color-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.gallery-item:hover .gallery-item__expand,
+.gallery-item:focus-visible .gallery-item__expand {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .gallery-grid {
+    columns: 2 200px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .gallery-grid {
+    columns: 1;
+  }
+  .gallery-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .gallery-filters::-webkit-scrollbar {
+    display: none;
+  }
+  /* Touch devices par caption hamesha dikhe (hover nahi hota) */
+  .gallery-item__caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item,
+  .gallery-item:not(.is-visible),
+  .gallery-item.is-visible {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

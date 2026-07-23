@@ -1,0 +1,100 @@
+.stat-strip {
+  display: grid;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.stat-strip--light {
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+}
+
+.stat-strip--dark {
+  background: var(--color-ink);
+}
+
+.stat-strip__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: var(--space-md) var(--space-sm);
+  text-align: center;
+  border-right: 1px solid var(--color-border);
+  cursor: default;
+
+  /* Reveal animation: starts slightly below + faded, item-level delay
+     is set inline via style={transitionDelay} for the stagger effect. */
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, background 0.25s ease;
+}
+
+.stat-strip.is-visible .stat-strip__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stat-strip.is-visible .stat-strip__item:hover {
+  background: rgba(201, 162, 39, 0.06);
+}
+
+.stat-strip.is-visible .stat-strip__item:hover .stat-strip__value {
+  transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-strip__item {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.stat-strip--dark .stat-strip__item {
+  border-right-color: rgba(247, 243, 234, 0.12);
+}
+
+.stat-strip__item:last-child {
+  border-right: none;
+}
+
+.stat-strip__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  color: var(--color-gold);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.stat-strip--dark .stat-strip__label {
+  color: rgba(247, 243, 234, 0.7);
+}
+
+.stat-strip__label {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 700px) {
+  .stat-strip {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .stat-strip__item:nth-child(2n) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .stat-strip {
+    grid-template-columns: 1fr !important;
+  }
+  .stat-strip__item {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .stat-strip__item:last-child {
+    border-bottom: none;
+  }
+}

@@ -1,0 +1,83 @@
+.floating-contact {
+  position: fixed;
+  right: clamp(1rem, 3vw, 1.6rem);
+  bottom: clamp(5.5rem, 14vh, 7rem);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.floating-contact__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: fcPop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.floating-contact__btn:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.floating-contact__btn--wa {
+  background: #25d366;
+  animation-delay: 0.05s;
+}
+
+.floating-contact__btn--call {
+  background: var(--color-gold, #c9a227);
+  color: #12181f;
+  animation-delay: 0.15s;
+}
+
+/* Gentle attention pulse ring around WhatsApp only */
+.floating-contact__btn--wa::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25d366;
+  opacity: 0.5;
+  z-index: -1;
+  animation: fcPulse 2.2s ease-out infinite;
+}
+
+@keyframes fcPulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes fcPop {
+  from { opacity: 0; transform: translateY(16px) scale(0.8); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 480px) {
+  .floating-contact__btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .floating-contact__btn--wa::before {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-contact__btn,
+  .floating-contact__btn--wa::before {
+    animation: none;
+  }
+}

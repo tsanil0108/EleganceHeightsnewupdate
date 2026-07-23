@@ -1,0 +1,92 @@
+.commitment-banner {
+  background-color: var(--color-ink);
+  background-size: cover;
+  background-position: center;
+  padding: var(--space-lg) var(--space-lg);
+  border-radius: var(--radius-md);
+  margin: var(--space-lg) 0;
+
+  /* Scroll-reveal: fades + slides up when parent wrapper gets .is-visible
+     (toggled in About.jsx via useScrollReveal). */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.is-visible .commitment-banner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commitment-banner {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.commitment-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.eyebrow--light {
+  color: var(--color-gold);
+}
+
+.commitment-banner__text p {
+  color: rgba(247, 243, 234, 0.85);
+  max-width: 420px;
+  margin-top: 0.4rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.commitment-banner__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.commitment-banner__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-white);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.commitment-banner__item:hover {
+  color: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+.commitment-banner__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  flex-shrink: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.commitment-banner__item:hover .commitment-banner__dot {
+  transform: scale(1.4);
+  box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.25);
+}
+
+@media (max-width: 700px) {
+  .commitment-banner__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .commitment-banner__items {
+    gap: var(--space-md);
+  }
+}

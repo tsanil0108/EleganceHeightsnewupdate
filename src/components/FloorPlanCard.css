@@ -1,0 +1,124 @@
+.floor-plan-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.55s ease, transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
+
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.floor-plan-grid.is-visible .floor-plan-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.floor-plan-grid.is-visible .floor-plan-card:hover {
+  transform: translateY(-10px) scale(1.035);
+  box-shadow: 0 24px 48px rgba(15, 36, 25, 0.22);
+  border-color: var(--color-gold);
+  z-index: 2;
+}
+
+.floor-plan-card__image {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--color-cream-dark);
+}
+
+.floor-plan-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.floor-plan-card:hover .floor-plan-card__image img {
+  transform: scale(1.08);
+}
+
+.floor-plan-card__badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  background: var(--color-ink);
+  color: var(--color-gold);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-sm);
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.floor-plan-card:hover .floor-plan-card__badge {
+  box-shadow: 0 0 0 1px rgba(201, 162, 39, 0.5), 0 6px 16px rgba(201, 162, 39, 0.35);
+  transform: translateY(-2px);
+}
+
+.floor-plan-card__body {
+  padding: var(--space-md);
+}
+
+.floor-plan-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-sm);
+}
+
+.floor-plan-card__area {
+  font-family: var(--font-display);
+  color: var(--color-gold);
+  font-size: 1rem;
+}
+
+.floor-plan-card__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-border);
+}
+
+.floor-plan-card__config {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.floor-plan-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  transition: gap var(--transition), color var(--transition);
+}
+
+.floor-plan-card__link svg {
+  transition: transform var(--transition);
+}
+
+.floor-plan-card__link:hover {
+  color: var(--color-gold);
+  gap: 0.6rem;
+}
+
+.floor-plan-card__link:hover svg {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floor-plan-card,
+  .floor-plan-card__image img {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
