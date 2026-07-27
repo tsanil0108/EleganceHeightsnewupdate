@@ -10,8 +10,17 @@ export default function FeatureStrip({ features, phone }) {
     <div ref={ref} className={`feature-strip ${isVisible ? 'is-visible' : ''}`}>
       <div className="feature-strip__icons">
         {features.map((f, i) => (
-          <div className="feature-strip__item" key={f.label} style={{ transitionDelay: `${i * 70}ms` }}>
-            <Icon name={f.icon} size={20} />
+          <div
+            className="feature-strip__item"
+            key={f.label}
+            style={{
+              transitionDelay: `${i * 70}ms`,
+              '--pop-delay': `${i * 0.4}s`,
+            }}
+          >
+            <span className="feature-strip__icon-badge">
+              <Icon name={f.icon} size={22} />
+            </span>
             <span>{f.label}</span>
           </div>
         ))}

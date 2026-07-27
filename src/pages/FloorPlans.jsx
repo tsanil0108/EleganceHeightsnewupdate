@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import PageHero from '../components/PageHero';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import Button from '../components/Button';
 import Icon from '../components/Icon';
-import useScrollReveal from '../hooks/useScrollReveal';
 import scrollToHash from '../utils/scroll';
 import './FloorPlans.css';
 
@@ -14,7 +12,7 @@ const plan1bhk = {
   id: '1bhk-343',
   type: '1 BHK',
   sqft: '343 sq.ft.',
-  image: '/images/1_BHK_Layout.png',
+  image: '/images/1_BHK-343sq.png',
   configuration: 'Living / Kitchen, 1 Bedroom, 1 Bathroom',
   description:
     '1 BHK — 343 sq.ft. RERA carpet area. Efficient layout with living/kitchen, a comfortable bedroom and a modern bathroom.',
@@ -34,7 +32,7 @@ const plans2bhk = [
     id: '2bhk-456',
     type: '2 BHK',
     sqft: '456 sq.ft.',
-    image: '/images/2_BHK_Layout.png',
+    image: '/images/2_BHK-456sq.png',
     configuration: 'Living / Kitchen, 2 Bedrooms, 2 Bathrooms',
     description:
       '2 BHK — 456 sq.ft. RERA carpet area. Compact yet efficient layout with living/dining, well-planned kitchen, 2 bedrooms and 2 modern toilets.',
@@ -46,7 +44,7 @@ const plans2bhk = [
     id: '2bhk-479',
     type: '2 BHK',
     sqft: '479 sq.ft.',
-    image: '/images/2_BHK_Layout.png',
+    image: '/images/2_BHK-479sq.png',
     configuration: 'Living / Kitchen, 2 Bedrooms, 2 Bathrooms',
     description:
       '2 BHK — 479 sq.ft. RERA carpet area. Balanced layout with a wider living space, 2 bedrooms, 2 toilets and smart storage throughout.',
@@ -58,7 +56,7 @@ const plans2bhk = [
     id: '2bhk-488',
     type: '2 BHK',
     sqft: '488 sq.ft.',
-    image: '/images/2_BHK_Layout.png',
+    image: '/images/2_BHK-488sq.png',
     configuration: 'Living / Kitchen, 2 Bedrooms, 2 Bathrooms',
     description:
       '2 BHK — 488 sq.ft. RERA carpet area. Spacious living & dining, well-planned kitchen, 2 bedrooms with cross-ventilation and 2 toilets.',
@@ -70,7 +68,7 @@ const plans2bhk = [
     id: '2bhk-489',
     type: '2 BHK',
     sqft: '489 sq.ft.',
-    image: '/images/2_BHK_Layout.png',
+    image: '/images/2_BHK-489sq.png',
     configuration: 'Living / Kitchen, 2 Bedrooms, 2 Bathrooms',
     description:
       '2 BHK — 489 sq.ft. RERA carpet area. Thoughtful layout with generous bedroom sizes, modern kitchen and 2 toilets.',
@@ -82,7 +80,7 @@ const plans2bhk = [
     id: '2bhk-495',
     type: '2 BHK',
     sqft: '495 sq.ft.',
-    image: '/images/2_BHK_Layout.png',
+    image: '/images/2_BHK-495sq.png',
     configuration: 'Living / Kitchen, 2 Bedrooms, 2 Bathrooms',
     description:
       '2 BHK — 495 sq.ft. RERA carpet area. Premium corner layout with extra natural light, spacious living/dining and 2 bedrooms.',
@@ -94,7 +92,7 @@ const plans2bhk = [
     id: '2bhk-498',
     type: '2 BHK',
     sqft: '498 sq.ft.',
-    image: '/images/2_BHK_Layout.png',
+    image: '/images/2_BHK-498sq.png',
     configuration: 'Living / Kitchen, 2 Bedrooms, 2 Bathrooms',
     description:
       '2 BHK — 498 sq.ft. RERA carpet area. The largest 2 BHK layout — expansive living area, 2 spacious bedrooms, 2 toilets and smart storage.',
@@ -104,88 +102,221 @@ const plans2bhk = [
   },
 ];
 
-// ---------- Zoom viewer (click image → fullscreen with +/− zoom) ----------
+// ============================================================
+// Zoom viewer
+// Click image → fullscreen viewer with zoom controls
+// ============================================================
 function ZoomViewer({ src, alt, onClose }) {
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'Escape') onClose();
+    const onKey = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
     };
+
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
+
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
   }, [onClose]);
 
-  const zoomIn = () => setScale((s) => Math.min(4, +(s + 0.5).toFixed(2)));
-  const zoomOut = () => setScale((s) => Math.max(1, +(s - 0.5).toFixed(2)));
+  const zoomIn = () => {
+    setScale((currentScale) =>
+      Math.min(4, +(currentScale + 0.5).toFixed(2)),
+    );
+  };
+
+  const zoomOut = () => {
+    setScale((currentScale) =>
+      Math.max(1, +(currentScale - 0.5).toFixed(2)),
+    );
+  };
+
+  const resetZoom = () => {
+    setScale(1);
+  };
+
+  const handleDoubleClick = () => {
+    setScale((currentScale) => (currentScale === 1 ? 2 : 1));
+  };
 
   return (
-    <div className="zoomview" role="dialog" aria-modal="true" aria-label={alt} onClick={onClose}>
-      <div className="zoomview__controls" onClick={(e) => e.stopPropagation()}>
-        <button type="button" onClick={zoomOut} aria-label="Zoom out">−</button>
+    <div
+      className="zoomview"
+      role="dialog"
+      aria-modal="true"
+      aria-label={alt}
+      onClick={onClose}
+    >
+      <div
+        className="zoomview__controls"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={zoomOut}
+          aria-label="Zoom out"
+          disabled={scale <= 1}
+        >
+          −
+        </button>
+
         <span>{Math.round(scale * 100)}%</span>
-        <button type="button" onClick={zoomIn} aria-label="Zoom in">+</button>
-        <button type="button" onClick={() => setScale(1)} aria-label="Reset zoom">Reset</button>
-        <button type="button" className="zoomview__close" onClick={onClose} aria-label="Close">✕</button>
+
+        <button
+          type="button"
+          onClick={zoomIn}
+          aria-label="Zoom in"
+          disabled={scale >= 4}
+        >
+          +
+        </button>
+
+        <button
+          type="button"
+          onClick={resetZoom}
+          aria-label="Reset zoom"
+        >
+          Reset
+        </button>
+
+        <button
+          type="button"
+          className="zoomview__close"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          ✕
+        </button>
       </div>
-      <div className="zoomview__stage" onClick={(e) => e.stopPropagation()}>
+
+      <div
+        className="zoomview__stage"
+        onClick={(event) => event.stopPropagation()}
+      >
         <img
           src={src}
           alt={alt}
           style={{ width: `${scale * 100}%` }}
-          onDoubleClick={() => setScale((s) => (s === 1 ? 2 : 1))}
-          draggable="false"
+          onDoubleClick={handleDoubleClick}
+          draggable={false}
         />
       </div>
-      <p className="zoomview__hint">Double-click image to zoom • Scroll to pan • Esc to close</p>
+
+      <p className="zoomview__hint">
+        Double-click image to zoom • Scroll to pan • Esc to close
+      </p>
     </div>
   );
 }
 
+// ============================================================
+// Floor Plans page
+// ============================================================
 export default function FloorPlans() {
-  const [mainTab, setMainTab] = useState('1bhk'); // '1bhk' | '2bhk'
+  const [mainTab, setMainTab] = useState('1bhk');
   const [activeId, setActiveId] = useState(plan1bhk.id);
   const [zoomSrc, setZoomSrc] = useState(null);
-  const [masterRef, masterVisible] = useScrollReveal({ threshold: 0.1 });
 
   const is2bhk = mainTab === '2bhk';
+
   const current = is2bhk
-    ? plans2bhk.find((p) => p.id === activeId) || plans2bhk[0]
+    ? plans2bhk.find((plan) => plan.id === activeId) || plans2bhk[0]
     : plan1bhk;
 
   const handleMainTab = (tab) => {
     setMainTab(tab);
-    setActiveId(tab === '2bhk' ? plans2bhk[0].id : plan1bhk.id);
+
+    setActiveId(
+      tab === '2bhk'
+        ? plans2bhk[0].id
+        : plan1bhk.id,
+    );
+  };
+
+  const handlePriceEnquiry = (event) => {
+    event.preventDefault();
+    scrollToHash('#contact');
   };
 
   return (
     <>
-      <PageHero
-        eyebrow="Floor Plans"
-        title="Thoughtfully Designed"
-        accent="Homes for Modern Living"
-        description="Choose between 1 BHK and 2 BHK layouts, each planned for cross-ventilation, natural light, and a sense of space rarely found at this price point."
-        bgImage="/images/FloorPlanOverview.png"
-      />
+      {/* Split hero — text left, framed floor plan right */}
+      <section className="fp-hero">
+        <div className="container fp-hero__inner">
+          <div className="fp-hero__text">
+            <span className="eyebrow eyebrow--light">Floor Plans</span>
+            <h1>
+              Thoughtfully Designed{' '}
+              <span className="text-accent">Homes for Modern Living</span>
+            </h1>
+            <p>
+              Choose between 1 BHK and 2 BHK layouts, each planned for
+              cross-ventilation, natural light, and a sense of space rarely
+              found at this price point.
+            </p>
+
+            <div className="fp-hero__meta">
+              <div className="fp-hero__meta-item">
+                <strong>343–498</strong>
+                <span>sq.ft. Carpet</span>
+              </div>
+              <div className="fp-hero__meta-item">
+                <strong>1 &amp; 2</strong>
+                <span>BHK Options</span>
+              </div>
+              <div className="fp-hero__meta-item">
+                <strong>G+40</strong>
+                <span>Storeys</span>
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="fp-hero__plate"
+            onClick={() => setZoomSrc('/images/FloorPlanOverview.png')}
+            aria-label="Zoom typical floor plan"
+          >
+            <span className="fp-hero__plate-label">Typical Floor Plate</span>
+            <span className="fp-hero__plate-zoom" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M11 8v6M8 11h6M16.5 16.5L21 21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+              Zoom
+            </span>
+            <img src="/images/FloorPlanOverview.png" alt="Typical floor plate layout" />
+          </button>
+        </div>
+      </section>
 
       <section className="section floorplans-section">
         <div className="container">
-          {/* Main divs: 1 BHK — 343 | 2 BHK — 456–498 */}
-          <div className="floorplans-tabs" role="tablist" aria-label="Select floor plan type">
+          {/* Main tabs: 1 BHK and 2 BHK */}
+          <div
+            className="floorplans-tabs"
+            role="tablist"
+            aria-label="Select floor plan type"
+          >
             <button
               type="button"
               role="tab"
               aria-selected={!is2bhk}
-              className={`floorplans-tab ${!is2bhk ? 'is-active' : ''}`}
+              className={`floorplans-tab ${
+                !is2bhk ? 'is-active' : ''
+              }`}
               onClick={() => handleMainTab('1bhk')}
             >
               <span className="floorplans-tab__icon">
                 <Icon name="floorplan" size={18} />
               </span>
+
               <span className="floorplans-tab__text">
                 <strong>1 BHK</strong>
                 <em>343 sq.ft.</em>
@@ -196,12 +327,15 @@ export default function FloorPlans() {
               type="button"
               role="tab"
               aria-selected={is2bhk}
-              className={`floorplans-tab ${is2bhk ? 'is-active' : ''}`}
+              className={`floorplans-tab ${
+                is2bhk ? 'is-active' : ''
+              }`}
               onClick={() => handleMainTab('2bhk')}
             >
               <span className="floorplans-tab__icon">
                 <Icon name="floorplan" size={18} />
               </span>
+
               <span className="floorplans-tab__text">
                 <strong>2 BHK</strong>
                 <em>456 sq.ft. – 498 sq.ft.</em>
@@ -209,31 +343,41 @@ export default function FloorPlans() {
             </button>
           </div>
 
-          {/* 2 BHK par click hote hi — har size ka apna card */}
+          {/* 2 BHK size selection tabs */}
           {is2bhk && (
-            <div className="floorplans-tabs floorplans-tabs--sub" role="tablist" aria-label="Select 2 BHK size">
-              {plans2bhk.map((fp) => (
+            <div
+              className="floorplans-tabs floorplans-tabs--sub"
+              role="tablist"
+              aria-label="Select 2 BHK size"
+            >
+              {plans2bhk.map((floorPlan) => (
                 <button
-                  key={fp.id}
+                  key={floorPlan.id}
                   type="button"
                   role="tab"
-                  aria-selected={activeId === fp.id}
-                  className={`floorplans-tab floorplans-tab--sub ${activeId === fp.id ? 'is-active' : ''}`}
-                  onClick={() => setActiveId(fp.id)}
+                  aria-selected={activeId === floorPlan.id}
+                  className={`floorplans-tab floorplans-tab--sub ${
+                    activeId === floorPlan.id ? 'is-active' : ''
+                  }`}
+                  onClick={() => setActiveId(floorPlan.id)}
                 >
                   <span className="floorplans-tab__icon">
                     <Icon name="floorplan" size={16} />
                   </span>
+
                   <span className="floorplans-tab__text">
-                    <strong>{fp.type}</strong>
-                    <em>{fp.sqft}</em>
+                    <strong>{floorPlan.type}</strong>
+                    <em>{floorPlan.sqft}</em>
                   </span>
                 </button>
               ))}
             </div>
           )}
 
-          <div className="floorplans-detail" key={current.id}>
+          <div
+            className="floorplans-detail"
+            key={current.id}
+          >
             <button
               type="button"
               className="floorplans-detail__image"
@@ -244,13 +388,37 @@ export default function FloorPlans() {
                 <Icon name="floorplan" size={14} />
                 {current.sqft} Carpet Area
               </span>
-              <span className="floorplans-detail__zoomhint" aria-hidden="true">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
-                  <path d="M11 8v6M8 11h6M16.5 16.5L21 21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+
+              <span
+                className="floorplans-detail__zoomhint"
+                aria-hidden="true"
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="7"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+
+                  <path
+                    d="M11 8v6M8 11h6M16.5 16.5L21 21"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
                 </svg>
+
                 Zoom
               </span>
+
               <ImagePlaceholder
                 label={`${current.type} — Layout`}
                 src={current.image}
@@ -260,51 +428,81 @@ export default function FloorPlans() {
             </button>
 
             <div className="floorplans-detail__specs">
-              <span className="eyebrow">Configuration</span>
-              <h2>{current.type} — {current.sqft}</h2>
-              <p className="floorplans-detail__config">{current.configuration}</p>
-              <p className="floorplans-detail__desc">{current.description}</p>
+              <span className="eyebrow">
+                Configuration
+              </span>
+
+              <h2>
+                {current.type} — {current.sqft}
+              </h2>
+
+              <p className="floorplans-detail__config">
+                {current.configuration}
+              </p>
+
+              <p className="floorplans-detail__desc">
+                {current.description}
+              </p>
 
               <div className="floorplans-detail__pills">
+                {/* Bedroom information */}
                 <div className="floorplans-pill">
                   <span className="floorplans-pill__icon">
                     <Icon name="bed" size={18} />
                   </span>
+
                   <div>
                     <strong>{current.beds}</strong>
-                    <span>{current.beds > 1 ? 'Bedrooms' : 'Bedroom'}</span>
+
+                    <span>
+                      {current.beds > 1
+                        ? 'Bedrooms'
+                        : 'Bedroom'}
+                    </span>
                   </div>
                 </div>
+
+                {/* Bathroom information */}
                 <div className="floorplans-pill">
                   <span className="floorplans-pill__icon">
                     <Icon name="bath" size={18} />
                   </span>
+
                   <div>
                     <strong>{current.baths}</strong>
-                    <span>{current.baths > 1 ? 'Bathrooms' : 'Bathroom'}</span>
+
+                    <span>
+                      {current.baths > 1
+                        ? 'Bathrooms'
+                        : 'Bathroom'}
+                    </span>
                   </div>
                 </div>
+
+                {/* Price enquiry */}
                 <a
                   href="#contact"
                   className="floorplans-pill floorplans-pill--link"
                   aria-label="Enquire about price — open contact form"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToHash('#contact');
-                  }}
+                  onClick={handlePriceEnquiry}
                 >
+                
                   <span className="floorplans-pill__icon">
                     <Icon name="rupee" size={18} />
                   </span>
+
                   <div>
                     <strong>{current.price}</strong>
                     <span>Price — Tap to Enquire</span>
                   </div>
                 </a>
+
+                {/* Possession information */}
                 <div className="floorplans-pill">
                   <span className="floorplans-pill__icon">
                     <Icon name="calendar" size={18} />
                   </span>
+
                   <div>
                     <strong>Dec 2029</strong>
                     <span>Possession</span>
@@ -312,31 +510,24 @@ export default function FloorPlans() {
                 </div>
               </div>
 
-              <Button to="#contact" variant="primary" size="lg">Request Full Layout &amp; Pricing</Button>
+              <Button
+                to="#contact"
+                variant="primary"
+                size="lg"
+              >
+                Request Full Layout &amp; Pricing
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section floorplans-master">
-        <div className="container" ref={masterRef}>
-          <div className={`section-head center reveal ${masterVisible ? 'in-view' : ''}`}>
-            <span className="eyebrow" style={{ justifyContent: 'center' }}>Master Plan</span>
-            <h2>Tower Layout &amp; Unit Distribution</h2>
-          </div>
-          <button
-            type="button"
-            className={`floorplans-master__frame reveal ${masterVisible ? 'in-view' : ''}`}
-            onClick={() => setZoomSrc('/images/FloorPlanOverview.png')}
-            aria-label="Zoom master floor plate"
-          >
-            <ImagePlaceholder label="Master Floor Plate — All Units" src="/images/FloorPlanOverview.png" ratio="21/9" />
-          </button>
-        </div>
-      </section>
-
       {zoomSrc && (
-        <ZoomViewer src={zoomSrc} alt="Floor plan — zoom view" onClose={() => setZoomSrc(null)} />
+        <ZoomViewer
+          src={zoomSrc}
+          alt="Floor plan — zoom view"
+          onClose={() => setZoomSrc(null)}
+        />
       )}
     </>
   );

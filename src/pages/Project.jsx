@@ -126,7 +126,12 @@ export default function Project() {
               <div
                 className="project-amenities-teaser__item"
                 key={a.title}
-                style={{ transitionDelay: `${i * 60}ms` }}
+                style={{
+                  transitionDelay: `${i * 60}ms`,
+                  // Staggers the auto spotlight loop — each card takes
+                  // its turn glowing, 1s apart, forever.
+                  '--spot-delay': `-${i * 1}s`,
+                }}
               >
                 {a.title}
               </div>

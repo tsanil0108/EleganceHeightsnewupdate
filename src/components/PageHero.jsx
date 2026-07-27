@@ -18,6 +18,7 @@ export default function PageHero({
   imageVideo,
   bgImage,
   actions = [],
+  className = '',
   children,
 }) {
   const renderActions = () => {
@@ -55,7 +56,7 @@ export default function PageHero({
   if (bgImage) {
     return (
       <section
-        className="page-hero page-hero--bg"
+        className={`page-hero page-hero--bg ${className}`}
         style={{
           backgroundImage: `
             radial-gradient(

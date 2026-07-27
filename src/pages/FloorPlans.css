@@ -1,490 +1,714 @@
+/* ============================================================
+   FLOOR PLANS — SPLIT HERO (text left, framed plan right)
+   ============================================================ */
+.fp-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 80% at 90% 15%, rgba(224, 180, 48, 0.16), transparent 60%),
+    linear-gradient(135deg, #143024 0%, #0f271e 60%, #10271e 100%);
+  padding: clamp(3rem, 7vh, 5.5rem) 0;
+}
+
+.fp-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.fp-hero__text .eyebrow--light {
+  color: var(--color-gold);
+  letter-spacing: 0.18em;
+}
+
+.fp-hero__text h1 {
+  margin: 0.6rem 0 1rem;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.fp-hero__text h1 .text-accent {
+  color: var(--color-gold);
+  font-style: italic;
+}
+
+.fp-hero__text p {
+  max-width: 500px;
+  margin: 0;
+  color: rgba(247, 243, 234, 0.82);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+/* mini stats */
+.fp-hero__meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.8rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(247, 243, 234, 0.16);
+}
+
+.fp-hero__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.fp-hero__meta-item strong {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.fp-hero__meta-item span {
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(247, 243, 234, 0.6);
+}
+
+/* framed floor-plan plate */
+.fp-hero__plate {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid rgba(224, 180, 48, 0.35);
+  border-radius: 18px;
+  background: #fbf9f3;
+  cursor: zoom-in;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.fp-hero__plate:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+}
+
+.fp-hero__plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  background: #fff;
+}
+
+.fp-hero__plate-label {
+  position: absolute;
+  top: -0.8rem;
+  left: 1.2rem;
+  z-index: 2;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f0c846, #d9a817);
+  color: #10271e;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px rgba(214, 166, 22, 0.4);
+}
+
+.fp-hero__plate-zoom {
+  position: absolute;
+  bottom: 1.1rem;
+  right: 1.1rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 36, 25, 0.82);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fp-hero__plate:hover .fp-hero__plate-zoom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .fp-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .fp-hero__plate {
+    order: -1;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .fp-hero__meta {
+    gap: 1.4rem;
+  }
+
+  .fp-hero__meta-item strong {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fp-hero__meta {
+    flex-wrap: wrap;
+    gap: 1rem 1.6rem;
+  }
+}
+
+/* ============================================================
+   FLOOR PLANS PAGE
+   ============================================================ */
+
+.floorplans-section {
+  padding: var(--space-lg) 0;
+  background: var(--color-cream);
+}
+
+/* ============================================================
+   TABS
+   ============================================================ */
 .floorplans-tabs {
   display: flex;
-  gap: 0.85rem;
-  margin-bottom: var(--space-xl);
+  gap: 0.75rem;
   flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+
+.floorplans-tabs--sub {
+  margin-bottom: var(--space-md);
+  gap: 0.5rem;
 }
 
 .floorplans-tab {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0.65rem 1.3rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: 0.85rem;
-  font-weight: 600;
+  gap: 0.75rem;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid rgba(17, 48, 36, 0.12);
+  border-radius: 12px;
   background: var(--color-white);
-  color: var(--color-ink);
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 0.95rem;
   cursor: pointer;
-  white-space: nowrap;
-  box-shadow: 0 2px 10px rgba(18, 24, 31, 0.04);
-  transition: background var(--transition), color var(--transition), border-color var(--transition),
-    transform var(--transition), box-shadow var(--transition);
+  transition: all 0.3s ease;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.floorplans-tab:hover {
+  border-color: var(--color-gold);
+  background: #fffdf6;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.floorplans-tab.is-active {
+  border-color: var(--color-gold);
+  background: linear-gradient(135deg, #fffdf6, #fdf6e8);
+  color: var(--color-ink);
+  box-shadow: 0 8px 24px rgba(214, 166, 22, 0.15);
+}
+
+.floorplans-tab--sub {
+  padding: 0.6rem 1rem;
+  min-width: 100px;
+  font-size: 0.85rem;
 }
 
 .floorplans-tab__icon {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: var(--color-cream-dark);
   color: var(--color-gold);
-  transition: background var(--transition), color var(--transition), transform var(--transition);
+  flex-shrink: 0;
 }
 
 .floorplans-tab__text {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  text-align: left;
+  align-items: flex-start;
+  line-height: 1.2;
 }
 
 .floorplans-tab__text strong {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  line-height: 1.1;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-ink);
 }
 
 .floorplans-tab__text em {
+  font-size: 0.75rem;
   font-style: normal;
-  font-size: 0.72rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.02em;
-}
-
-.floorplans-tab:hover {
-  border-color: var(--color-gold);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(201, 162, 39, 0.16);
-}
-
-.floorplans-tab:hover .floorplans-tab__icon {
-  transform: scale(1.08) rotate(-6deg);
-}
-
-.floorplans-tab:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 2px;
-}
-
-.floorplans-tab.is-active {
-  background: linear-gradient(135deg, var(--color-ink) 0%, var(--color-ink-light) 100%);
-  color: var(--color-cream);
-  border-color: var(--color-ink);
-  box-shadow: 0 14px 28px rgba(15, 36, 25, 0.2);
-}
-
-.floorplans-tab.is-active .floorplans-tab__icon {
-  background: var(--color-gold);
-  color: var(--color-ink);
-}
-
-.floorplans-tab.is-active .floorplans-tab__text em {
-  color: rgba(247, 243, 234, 0.65);
-}
-
-/* ---------- 2 BHK size sub-cards row ---------- */
-.floorplans-tabs--sub {
-  margin-top: calc(-1 * var(--space-lg));
-  margin-bottom: var(--space-xl);
-  animation: floorplan-fade-in 0.4s ease both;
-}
-
-.floorplans-tab--sub {
-  padding: 0.55rem 1.1rem;
-}
-
-.floorplans-tab--sub .floorplans-tab__icon {
-  width: 30px;
-  height: 30px;
-}
-
-/* Sub-card active — gold outline style */
-.floorplans-tab--sub.is-active {
-  background: var(--color-white);
-  color: var(--color-ink);
-  border-color: var(--color-gold);
-  box-shadow: 0 10px 22px rgba(201, 162, 39, 0.22);
-}
-
-.floorplans-tab--sub.is-active .floorplans-tab__icon {
-  background: var(--color-gold);
-  color: var(--color-ink);
-}
-
-.floorplans-tab--sub.is-active .floorplans-tab__text em {
   color: var(--color-text-muted);
 }
 
+.floorplans-tab.is-active .floorplans-tab__text strong {
+  color: var(--color-gold-dark);
+}
+
+/* ============================================================
+   DETAIL VIEW
+   ============================================================ */
 .floorplans-detail {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-xl);
-  align-items: center;
-  animation: floorplan-fade-in 0.5s ease both;
-}
-
-@keyframes floorplan-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  align-items: start;
+  background: var(--color-white);
+  border-radius: 24px;
+  padding: var(--space-lg);
+  box-shadow: 0 20px 60px rgba(15, 36, 25, 0.08);
+  border: 1px solid rgba(17, 48, 36, 0.06);
 }
 
 .floorplans-detail__image {
   position: relative;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
   display: block;
-  width: 100%;
+  border: 0;
   padding: 0;
-  border: none;
   background: none;
-  font: inherit;
-  text-align: left;
+  width: 100%;
   cursor: zoom-in;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.floorplans-detail__image .img-placeholder__img {
-  transition: transform 0.6s ease;
+.floorplans-detail__image:hover {
+  transform: scale(1.01);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
-.floorplans-detail__image:hover .img-placeholder__img {
-  transform: scale(1.04);
+.floorplans-detail__image .img-placeholder {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.floorplans-detail__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  background: #faf9f5;
 }
 
 .floorplans-detail__badge {
   position: absolute;
-  top: 0.9rem;
-  left: 0.9rem;
+  top: 1rem;
+  left: 1rem;
   z-index: 2;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: var(--color-gold);
-  color: var(--color-ink);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  padding: 0.4rem 0.85rem;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(15, 36, 25, 0.85);
+  backdrop-filter: blur(8px);
+  color: #f4e6c0;
+  font-size: 0.78rem;
+  font-weight: 600;
   border-radius: 999px;
-  box-shadow: 0 8px 18px rgba(201, 162, 39, 0.35);
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* "Zoom" hint chip on the plan image */
+.floorplans-detail__badge svg {
+  color: var(--color-gold);
+}
+
 .floorplans-detail__zoomhint {
   position: absolute;
-  top: 0.9rem;
-  right: 0.9rem;
+  bottom: 1rem;
+  right: 1rem;
   z-index: 2;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.35rem;
-  background: rgba(18, 24, 31, 0.6);
-  color: var(--color-cream);
-  font-size: 0.72rem;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(15, 36, 25, 0.7);
+  backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.7rem;
   font-weight: 600;
-  padding: 0.35rem 0.75rem;
   border-radius: 999px;
-  backdrop-filter: blur(3px);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(4px);
 }
 
 .floorplans-detail__image:hover .floorplans-detail__zoomhint {
   opacity: 1;
+  transform: translateY(0);
+}
+
+.floorplans-detail__specs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.floorplans-detail__specs .eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.25rem;
 }
 
 .floorplans-detail__specs h2 {
-  font-size: var(--fs-h2);
-  margin: 0.3rem 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0;
+  line-height: 1.2;
 }
 
 .floorplans-detail__config {
-  margin-bottom: var(--space-md);
+  font-size: 1rem;
   color: var(--color-text-muted);
+  margin: 0;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* Variant description */
 .floorplans-detail__desc {
-  margin: -0.5rem 0 var(--space-md);
-  font-size: 0.92rem;
-  line-height: 1.6;
+  font-size: 0.98rem;
+  line-height: 1.7;
   color: var(--color-text-muted);
-  max-width: 480px;
+  margin: 0;
 }
 
+/* ============================================================
+   PILLS / SPECS GRID
+   ============================================================ */
 .floorplans-detail__pills {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
-  margin-bottom: var(--space-lg);
+  margin: 0.5rem 0;
 }
 
 .floorplans-pill {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.85rem 1rem;
+  padding: 0.75rem 1rem;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-white);
-  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 12px;
+  background: #faf9f5;
+  transition: all 0.25s ease;
 }
 
 .floorplans-pill:hover {
   border-color: var(--color-gold);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(201, 162, 39, 0.14);
+  background: #fffdf6;
 }
 
-/* Price pill — clickable, opens the contact form */
 .floorplans-pill--link {
+  cursor: pointer;
   text-decoration: none;
   color: inherit;
-  cursor: pointer;
 }
 
-.floorplans-pill--link strong {
-  transition: color 0.25s ease;
-}
-
-.floorplans-pill--link:hover strong {
-  color: var(--color-gold);
+.floorplans-pill--link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(214, 166, 22, 0.15);
 }
 
 .floorplans-pill__icon {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 38px;
+  height: 38px;
   flex-shrink: 0;
-  background: var(--color-cream-dark);
+  border-radius: 10px;
+  background: rgba(220, 174, 37, 0.12);
   color: var(--color-gold);
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
-}
-
-.floorplans-pill:hover .floorplans-pill__icon {
-  background: var(--color-gold);
-  color: var(--color-ink);
-  transform: scale(1.1) rotate(-6deg);
 }
 
 .floorplans-pill div {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
 .floorplans-pill strong {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--color-ink);
 }
 
 .floorplans-pill span {
   font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   color: var(--color-text-muted);
 }
 
+.floorplans-pill--link strong {
+  color: var(--color-gold-dark);
+}
+
 .floorplans-detail__specs .btn {
-  margin-top: 0;
-}
-
-/* Master plan section — framed, hover-zoomable, click to open zoom */
-.floorplans-master__frame {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--color-border-gold, var(--color-border));
-  box-shadow: var(--shadow-card);
-  transition: box-shadow 0.4s ease;
-  display: block;
+  margin-top: 0.5rem;
   width: 100%;
-  padding: 0;
-  background: none;
-  font: inherit;
-  text-align: left;
-  cursor: zoom-in;
+  justify-content: center;
 }
 
-.floorplans-master__frame:hover {
-  box-shadow: 0 24px 48px rgba(201, 162, 39, 0.2);
-}
-
-.floorplans-master__frame .img-placeholder__img {
-  transition: transform 0.7s ease;
-}
-
-.floorplans-master__frame:hover .img-placeholder__img {
-  transform: scale(1.03);
-}
-
-/* ---------- Fullscreen zoom viewer ---------- */
+/* ============================================================
+   ZOOM VIEWER (Fullscreen overlay)
+   ============================================================ */
 .zoomview {
   position: fixed;
   inset: 0;
-  z-index: 1100;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: clamp(0.8rem, 3vw, 2rem);
-  background: rgba(12, 16, 22, 0.93);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(12px);
+  animation: zoomFade 0.25s ease;
+}
+
+@keyframes zoomFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .zoomview__controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(18, 24, 31, 0.85);
-  border: 1px solid rgba(247, 243, 234, 0.2);
-  border-radius: 999px;
-  padding: 0.35rem 0.6rem;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
 }
 
 .zoomview__controls button {
-  min-width: 34px;
-  height: 34px;
-  padding: 0 0.7rem;
-  border: none;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--color-cream);
-  font-size: 1rem;
-  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .zoomview__controls button:hover {
-  background: var(--color-gold);
-  color: var(--color-ink);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-gold);
+}
+
+.zoomview__controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .zoomview__controls span {
-  min-width: 52px;
-  text-align: center;
-  color: var(--color-cream);
-  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
   font-weight: 600;
+  min-width: 50px;
+  text-align: center;
 }
 
 .zoomview__close {
-  margin-left: 0.3rem;
+  margin-left: auto;
+  padding: 0.4rem 1.2rem !important;
+  background: rgba(255, 50, 50, 0.2) !important;
+  border-color: rgba(255, 50, 50, 0.3) !important;
+}
+
+.zoomview__close:hover {
+  background: rgba(255, 50, 50, 0.4) !important;
 }
 
 .zoomview__stage {
-  width: min(1100px, 94vw);
-  height: min(72vh, 800px);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: auto;
-  border-radius: var(--radius-md);
-  background: #fff;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  padding: 2rem;
 }
 
 .zoomview__stage img {
-  display: block;
-  min-width: 100%;
-  height: auto;
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  transition: width 0.2s ease;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   user-select: none;
-  transition: width 0.25s ease;
+  -webkit-user-drag: none;
 }
 
 .zoomview__hint {
+  text-align: center;
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   margin: 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: rgba(247, 243, 234, 0.6);
-  text-transform: uppercase;
 }
 
-/* Tablet */
-@media (max-width: 900px) {
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
   .floorplans-detail {
     grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-md);
   }
+
   .floorplans-detail__image {
-    order: -1;
-  }
-  .floorplans-detail__pills {
-    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+    margin: 0 auto;
   }
 }
 
-/* Mobile: tabs become a horizontal swipe row */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .floorplans-tabs {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 0.4rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    gap: 0.5rem;
   }
-  .floorplans-tabs::-webkit-scrollbar {
-    display: none;
-  }
-  .floorplans-tabs--sub {
-    margin-top: calc(-1 * var(--space-md));
-  }
-  .floorplans-tab {
-    font-size: 0.8rem;
-    padding: 0.55rem 1rem;
-  }
-  .floorplans-tab__icon {
-    width: 28px;
-    height: 28px;
-  }
-  .floorplans-detail__pills {
-    grid-template-columns: 1fr 1fr;
-  }
-  .floorplans-detail__specs .btn {
-    width: 100%;
-    text-align: center;
-  }
-  .zoomview__stage {
-    height: 62vh;
-  }
-  .zoomview__hint {
-    display: none;
-  }
-}
 
-@media (max-width: 360px) {
+  .floorplans-tab {
+    padding: 0.65rem 1rem;
+    min-width: 100px;
+    font-size: 0.85rem;
+  }
+
+  .floorplans-tab--sub {
+    padding: 0.5rem 0.8rem;
+    min-width: 80px;
+    font-size: 0.8rem;
+  }
+
   .floorplans-tab__text strong {
     font-size: 0.85rem;
   }
+
   .floorplans-tab__text em {
     font-size: 0.65rem;
   }
+
+  .floorplans-detail {
+    padding: var(--space-sm);
+    border-radius: 16px;
+  }
+
+  .floorplans-detail__specs h2 {
+    font-size: 1.5rem;
+  }
+
+  .floorplans-detail__pills {
+    grid-template-columns: 1fr;
+  }
+
+  .floorplans-detail__badge {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .zoomview__controls {
+    padding: 0.75rem 1rem;
+    gap: 0.35rem;
+  }
+
+  .zoomview__controls button {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .zoomview__stage {
+    padding: 1rem;
+  }
+
+  .zoomview__stage img {
+    max-width: 100%;
+    max-height: 70vh;
+  }
 }
 
+@media (max-width: 480px) {
+  .floorplans-tabs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .floorplans-tab {
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .floorplans-tabs--sub {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .floorplans-tab--sub {
+    flex: 1;
+    min-width: 60px;
+  }
+
+  .floorplans-detail__specs h2 {
+    font-size: 1.3rem;
+  }
+
+  .floorplans-detail__config {
+    font-size: 0.9rem;
+  }
+
+  .floorplans-detail__desc {
+    font-size: 0.9rem;
+  }
+
+  .zoomview__stage img {
+    max-height: 60vh;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  .floorplans-detail,
-  .floorplans-tabs--sub,
-  .floorplans-detail__image .img-placeholder__img,
-  .floorplans-master__frame .img-placeholder__img,
-  .floorplans-tab__icon,
-  .floorplans-pill__icon {
-    animation: none !important;
+  .floorplans-tab,
+  .floorplans-detail__image,
+  .floorplans-pill,
+  .fp-hero__plate,
+  .zoomview {
     transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+    animation: none !important;
+  }
+
+  .floorplans-detail__zoomhint {
+    opacity: 1;
+    transform: none;
   }
 }

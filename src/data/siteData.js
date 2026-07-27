@@ -216,6 +216,12 @@ export const interiorSpecs = [
   'High-security Gates with CCTV Cameras',
 ];
 
+// ============================================================
+// Floor plan preview cards — used on the Project page grid.
+// Just the 2 summary cards (1 BHK, and 2 BHK with its size
+// range). Individual 2 BHK size variants (479/488/489/495/498)
+// only show on the full Floor Plans page/section.
+// ============================================================
 export const floorPlans = [
   {
     id: '1bhk',
@@ -223,7 +229,7 @@ export const floorPlans = [
     carpetArea: '343 sq.ft.',
     configuration: 'Living / Kitchen, 1 Bedroom, 1 Bathroom',
     price: 'On Request',
-    image: '/images/1_BHK_Layout.png',
+    image: '/images/1_BHK-343sq.png',
   },
   {
     id: '2bhk',
@@ -231,7 +237,7 @@ export const floorPlans = [
     carpetArea: '456 sq.ft.- 498 sq.ft.',
     configuration: 'Living / Kitchen, 2 Bedrooms, 2 Bathrooms',
     price: 'On Request',
-    image: '/images/2_BHK_Layout.png',
+    image: '/images/2_BHK-498sq.png',
   },
 ];
 

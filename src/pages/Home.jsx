@@ -13,16 +13,22 @@ const heroImages = [
   '/images/building.png',
   '/images/building1.png',
   '/images/building2.png',
-  
 ];
+
+// seamless loop ke liye first slide ka clone end me
+const heroSlides = [...heroImages, heroImages[0]];
+
+const HERO_INTERVAL = 4000; // har slide kitni der tikta hai
+const HERO_SLIDE_MS = 900;  // slide transition duration
 
 // Lifestyle showcase
 const lifestyleImages = [
   { label: 'Facade', src: '/images/Facade.png' },
-  { label: 'Lobby', src: '/images/Lobby.png' },
+ 
   { label: 'Pool Deck', src: '/images/InfinityPool.png' },
   { label: 'Living Room', src: '/images/LivingRoom.png' },
   { label: 'Garden', src: '/images/Garden.png' },
+  { label: 'Bed Room', src: '/images/Bedroom.png' },
 ];
 
 const carouselItems = lifestyleImages.map((item) => ({
@@ -38,6 +44,8 @@ const lightboxItems = lifestyleImages.map((item) => ({
 export default function Home() {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [activeHeroImage, setActiveHeroImage] = useState(0);
+  const [heroSnap, setHeroSnap] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const openLightbox = (i) =>
     setLightboxIndex(i % lifestyleImages.length);
@@ -56,16 +64,62 @@ export default function Home() {
         : (i - 1 + lifestyleImages.length) % lifestyleImages.length
     );
 
-  // Hero background auto-change — every 1.5s, sliding left-to-right
+  // Preload hero images
   useEffect(() => {
-    const heroInterval = window.setInterval(() => {
-      setActiveHeroImage(
-        (currentImage) => (currentImage + 1) % heroImages.length
-      );
-    }, 1500);
-
-    return () => window.clearInterval(heroInterval);
+    let loaded = 0;
+    const total = heroImages.length;
+    
+    heroImages.forEach((src) => {
+      const img = new Image();
+      img.onload = () => {
+        loaded++;
+        if (loaded === total) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        loaded++;
+        if (loaded === total) {
+          setImagesLoaded(true);
+        }
+      };
+      img.src = src;
+    });
   }, []);
+
+  // Auto-advance
+  useEffect(() => {
+    if (!imagesLoaded) return;
+    
+    const id = window.setInterval(() => {
+      setActiveHeroImage((c) => c + 1);
+    }, HERO_INTERVAL);
+
+    return () => window.clearInterval(id);
+  }, [imagesLoaded]);
+
+  // Clone pe pohanche → slide poora hone do, phir bina transition ke 0 pe jump
+  useEffect(() => {
+    if (activeHeroImage !== heroImages.length) return undefined;
+    const t = window.setTimeout(() => {
+      setHeroSnap(true);
+      setActiveHeroImage(0);
+    }, HERO_SLIDE_MS);
+    return () => window.clearTimeout(t);
+  }, [activeHeroImage]);
+
+  // Snap ke baad transition wapas on
+  useEffect(() => {
+    if (!heroSnap) return undefined;
+    let raf2;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => setHeroSnap(false));
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      if (raf2) cancelAnimationFrame(raf2);
+    };
+  }, [heroSnap]);
 
   // Scroll reveal
   useEffect(() => {
@@ -101,19 +155,28 @@ export default function Home() {
       {/* Hero */}
       <section className="home-hero">
         <div className="home-hero__bg" aria-hidden="true">
-          {heroImages.map((image, index) => (
-            <img
-              key={image}
-              src={image}
-              alt=""
-              className="home-hero__slide"
-              style={{
-                transform: `translateX(${(activeHeroImage - index) * 100}%)`,
-              }}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              fetchPriority={index === 0 ? 'high' : 'auto'}
-            />
-          ))}
+          <div
+            className="home-hero__track"
+            style={{
+              transform: `translateX(-${activeHeroImage * 100}%)`,
+              transition: heroSnap ? 'none' : `transform ${HERO_SLIDE_MS}ms cubic-bezier(0.65, 0, 0.35, 1)`,
+            }}
+          >
+            {heroSlides.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Hero background ${index + 1}`}
+                className="home-hero__slide"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : 'auto'}
+                style={{
+                  opacity: imagesLoaded ? 1 : 0,
+                  transition: 'opacity 0.5s ease',
+                }}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="home-hero__overlay" />
@@ -151,62 +214,70 @@ export default function Home() {
                   key={image}
                   type="button"
                   className={
-                    index === activeHeroImage
+                    index === activeHeroImage % heroImages.length
                       ? 'home-hero__slider-dot is-active'
                       : 'home-hero__slider-dot'
                   }
-                  onClick={() => setActiveHeroImage(index)}
+                  onClick={() => {
+                    setHeroSnap(false);
+                    setActiveHeroImage(index);
+                  }}
                   aria-label={`Show hero image ${index + 1}`}
                 />
               ))}
             </div>
           </div>
 
-          <div className="home-hero__floating-card hero-anim hero-anim--card">
-            <strong>Project Highlights</strong>
-
-            <span>
-              <Icon name="home" size={16} />
-              1 &amp; 2 BHK Residences
-            </span>
-
-            <span>
-              <Icon name="lift" size={16} />
-              G+40 Storeys
-            </span>
-
-            <span>
-              <Icon name="pin" size={16} />
-              Malad East, Mumbai
-            </span>
-
-            <span>
-              <Icon name="calendar" size={16} />
-              Possession — Dec 2029
-            </span>
-
-            <span>
-              <Icon name="percent" size={16} />
-              Pay Only 9% Registration*
-            </span>
-
-            <div className="home-hero__rera">
+          {/* Right column — badge + card stacked */}
+          <aside className="home-hero__aside hero-anim hero-anim--card">
+            {/* RERA badge */}
+            <div className="home-hero__rera-badge">
+              <div className="home-hero__rera-badge-text">
+                <strong>MAHA RERA NO.</strong>
+                <span>P51800034810</span>
+                <em>www.maharera.maharashtra.gov.in</em>
+              </div>
               <img
                 src="/images/QRCODE.png"
-                alt="MahaRERA QR Code — Scan to verify registration"
-                className="home-hero__rera-qr"
-                loading="lazy"
+                alt="MahaRERA QR Code"
+                className="home-hero__rera-badge-qr"
               />
-
-              <div className="home-hero__rera-text">
-                <strong>MahaRERA Regn. No.</strong>
-                <span>P51800034810</span>
-                <em>
-                  Scan to verify on maharera.maharashtra.gov.in
-                </em>
-              </div>
             </div>
-          </div>
+
+            {/* Project Highlights card */}
+            <div className="home-hero__floating-card">
+              <strong>Project Highlights</strong>
+
+              <span>
+                <Icon name="home" size={16} />
+                1 &amp; 2 BHK Residences
+              </span>
+
+              <span>
+                <Icon name="lift" size={16} />
+                G+40 Storeys
+              </span>
+
+              <span>
+                <Icon name="pin" size={16} />
+                Malad East, Mumbai
+              </span>
+
+              <span>
+                <Icon name="calendar" size={16} />
+                Possession — Dec 2029
+              </span>
+
+              <span className="home-hero__offer">
+                <span className="home-hero__offer-tag">Limited Offer</span>
+                <Icon name="percent" size={16} />
+                <span className="home-hero__offer-text">
+                  Pay Only <strong>9%</strong> Registration
+                  <em>*T&amp;C apply</em>
+                </span>
+              </span>
+            </div>
+          </aside>
         </div>
       </section>
 
