@@ -257,7 +257,7 @@ export const projectSpecs = [
 
 export const galleryImages = [
   { id: 1, caption: 'Tower Facade at Dusk', category: 'Exterior', image: '/images/Facade.png' },
-  { id: 2, caption: 'Grand Entrance Lobby', category: 'Interior', image: '/images/Lobby.png' },
+  { id: 2, caption: 'Grand Entrance Lobby', category: 'Interior', image: '/images/LobbywithItalianMarble.png' },
   { id: 3, caption: 'Living Room Interiors', category: 'Interior', image: '/images/LivingRoom.png' },
   { id: 4, caption: 'Rooftop Infinity Pool', category: 'Amenity', image: '/images/InfinityPool.png' },
   { id: 5, caption: 'Landscaped Podium Garden', category: 'Amenity', image: '/images/Garden.png' },
