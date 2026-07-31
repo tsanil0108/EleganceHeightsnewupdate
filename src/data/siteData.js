@@ -34,7 +34,6 @@ export const aboutStats = [
   { value: '100%', label: 'Commitment to Quality' },
 ];
 
-// About page values grid (matches PDF: 5 values, no numbering — not a sequence)
 export const companyValues = [
   {
     title: 'Integrity',
@@ -55,6 +54,10 @@ export const companyValues = [
   {
     title: 'Sustainability',
     description: 'Building eco-friendly spaces for a better tomorrow.',
+  },
+  {
+    title: 'Pay Less, Get More',
+    description: 'Value-driven pricing without compromising quality.',
   },
 ];
 
@@ -144,7 +147,7 @@ export const experienceBeforeYouBuy = {
 
 // Project hero quick-facts row (matches brochure cover: G+40 Storey Tower / Malad East / Affordable Luxury / 1&2 BHK)
 export const projectQuickFacts = [
-  { icon: 'building', label: 'G+40 Storey Tower' },
+  { icon: 'building', label: 'B1+B2+G+40 Storey Tower' },
   { icon: 'pin', label: 'Prime Location — Malad East' },
   { icon: 'diamond', label: 'Affordable Luxury, Premium Living' },
   { icon: 'home', label: '1 & 2 BHK Spacious Homes' },
@@ -159,7 +162,7 @@ export const projectFeatureStrip = [
   { icon: 'solar', label: 'Solar Powered Common Area For Lights & Ventilation' },
   { icon: 'waste', label: 'Waste Management System' },
   { icon: 'drop', label: 'Rain Water Harvesting & Sewage Treatment Plant' },
-  { icon: 'wifi', label: 'Wi-Fi Enabled' },
+  { icon: 'wifi', label: 'Wi-Fi common area' },
 ];
 
 // Project highlights strip (matches PDF: Italian Marble Lobby / Amenities / Connectivity / etc.)

@@ -1,7 +1,7 @@
 .quick-facts {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-lg);
+  gap: var(--space-md);
   justify-content: center;
   padding: var(--space-md) var(--space-lg);
   margin-top: var(--space-md);
@@ -14,14 +14,18 @@
 .quick-facts__item {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.7rem;
+  padding: 0.55rem 0.9rem 0.55rem 0.55rem;
+  border-radius: 999px;
   color: var(--color-white);
-  font-size: 0.88rem;
-  font-weight: 500;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
 
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.5s ease, transform 0.5s ease, color 0.25s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s ease,
+    box-shadow 0.3s ease, color 0.25s ease;
 }
 
 .quick-facts.is-visible .quick-facts__item {
@@ -30,25 +34,60 @@
 }
 
 .quick-facts.is-visible .quick-facts__item:hover {
+  background: rgba(201, 162, 39, 0.2);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
   color: var(--color-gold-light);
-}
-
-.quick-facts.is-visible .quick-facts__item:hover .quick-facts__icon {
-  transform: scale(1.15) rotate(-6deg);
+  transform: translateY(-3px);
+  cursor: default;
 }
 
 .quick-facts__icon {
   display: inline-flex;
-  color: var(--color-gold);
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.2);
+  color: var(--color-gold-light);
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.quick-facts.is-visible .quick-facts__item:hover .quick-facts__icon {
+  transform: scale(1.14) rotate(-6deg);
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+.quick-facts__label {
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .quick-facts {
+    gap: 0.6rem 0.9rem;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .quick-facts__item {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 700px) {
   .quick-facts {
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-sm);
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .quick-facts__item {
+    width: 100%;
+  }
+
+  .quick-facts.is-visible .quick-facts__item:hover {
+    transform: translateY(0);
   }
 }
 
@@ -56,6 +95,10 @@
   .quick-facts__item {
     transition: none;
     opacity: 1;
+    transform: none;
+  }
+
+  .quick-facts.is-visible .quick-facts__item:hover {
     transform: none;
   }
 }

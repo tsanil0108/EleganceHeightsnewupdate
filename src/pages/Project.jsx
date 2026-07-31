@@ -24,6 +24,10 @@ export default function Project() {
   const [amenitiesRef, amenitiesVisible] = useScrollReveal();
   const [videoRef, videoVisible] = useScrollReveal({ threshold: 0.25 });
 
+  // Amenities-snapshot card ke image-reveal ke liye — mouse hover pe set
+  // hota hai, mobile pe tap (onClick) se bhi wahi index set/clear hota hai.
+  const [activeAmenity, setActiveAmenity] = useState(null);
+
   const videoElRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -42,7 +46,7 @@ export default function Project() {
         eyebrow="Our Flagship Project"
         title="Elegance Heights"
         description="Your spacious new abode in the suburbs — affordable 1 & 2 BHK homes at Malad East, Mumbai."
-        bgImage="/images/building.png"
+        bgImage="/images/building1.png"
         actions={[
           {
             label: 'Download Brochure',
@@ -111,7 +115,7 @@ export default function Project() {
         </div>
       </section>
 
-      {/* Amenities snapshot */}
+      {/* Amenities snapshot — hover (desktop) / tap (mobile) pe image reveal hoti hai */}
       <section className="section project-amenities-teaser">
         <div className="container">
           <div className="section-head center">
@@ -123,18 +127,22 @@ export default function Project() {
             className={`project-amenities-teaser__grid ${amenitiesVisible ? 'is-visible' : ''}`}
           >
             {amenities.slice(0, 8).map((a, i) => (
-              <div
-                className="project-amenities-teaser__item"
+              <button
+                type="button"
+                className={`project-amenities-teaser__item ${activeAmenity === i ? 'is-open' : ''}`}
                 key={a.title}
                 style={{
                   transitionDelay: `${i * 60}ms`,
-                  // Staggers the auto spotlight loop — each card takes
-                  // its turn glowing, 1s apart, forever.
-                  '--spot-delay': `-${i * 1}s`,
                 }}
+                onMouseEnter={() => setActiveAmenity(i)}
+                onMouseLeave={() => setActiveAmenity((cur) => (cur === i ? null : cur))}
+                onClick={() => setActiveAmenity((cur) => (cur === i ? null : i))}
               >
-                {a.title}
-              </div>
+                <span className="project-amenities-teaser__img" aria-hidden="true">
+                  {a.image && <img src={a.image} alt="" loading="lazy" />}
+                </span>
+                <span className="project-amenities-teaser__label">{a.title}</span>
+              </button>
             ))}
           </div>
           <div className="project-amenities-teaser__more">
@@ -142,6 +150,9 @@ export default function Project() {
           </div>
         </div>
       </section>
+
+      {/* In-house daily-needs vendors — video ke UPAR, naya tile-grid look */}
+      <InHouseConvenience />
 
       {/* Project video — poster + pulsing play button */}
       <section className="section project-video">
@@ -177,9 +188,6 @@ export default function Project() {
           </div>
         </div>
       </section>
-
-      {/* In-house daily-needs vendors */}
-      <InHouseConvenience />
     </>
   );
 }

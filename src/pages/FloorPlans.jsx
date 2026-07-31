@@ -261,20 +261,6 @@ export default function FloorPlans() {
               found at this price point.
             </p>
 
-            <div className="fp-hero__meta">
-              <div className="fp-hero__meta-item">
-                <strong>343–498</strong>
-                <span>sq.ft. Carpet</span>
-              </div>
-              <div className="fp-hero__meta-item">
-                <strong>1 &amp; 2</strong>
-                <span>BHK Options</span>
-              </div>
-              <div className="fp-hero__meta-item">
-                <strong>G+40</strong>
-                <span>Storeys</span>
-              </div>
-            </div>
           </div>
 
           <button

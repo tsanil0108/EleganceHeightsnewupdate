@@ -10,7 +10,7 @@ export default function QuickFactsBar({ facts }) {
       {facts.map((fact, i) => (
         <div className="quick-facts__item" key={fact.label} style={{ transitionDelay: `${i * 90}ms` }}>
           <span className="quick-facts__icon">
-            <Icon name={fact.icon} size={22} />
+            <Icon name={fact.icon} size={24} />
           </span>
           <span className="quick-facts__label">{fact.label}</span>
         </div>

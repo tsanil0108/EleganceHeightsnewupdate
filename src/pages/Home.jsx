@@ -10,9 +10,9 @@ import './Home.css';
 
 // Hero background images
 const heroImages = [
-  '/images/building.png',
   '/images/building1.png',
-  '/images/building2.png',
+  // '/images/building2.png',
+  // '/images/building.png',
 ];
 
 // seamless loop ke liye first slide ka clone end me
@@ -24,7 +24,7 @@ const HERO_SLIDE_MS = 900;  // slide transition duration
 // Lifestyle showcase
 const lifestyleImages = [
   { label: 'Facade', src: '/images/Facade.png' },
- 
+
   { label: 'Pool Deck', src: '/images/InfinityPool.png' },
   { label: 'Living Room', src: '/images/LivingRoom.png' },
   { label: 'Garden', src: '/images/Garden.png' },
@@ -68,7 +68,7 @@ export default function Home() {
   useEffect(() => {
     let loaded = 0;
     const total = heroImages.length;
-    
+
     heroImages.forEach((src) => {
       const img = new Image();
       img.onload = () => {
@@ -90,7 +90,7 @@ export default function Home() {
   // Auto-advance
   useEffect(() => {
     if (!imagesLoaded) return;
-    
+
     const id = window.setInterval(() => {
       setActiveHeroImage((c) => c + 1);
     }, HERO_INTERVAL);
@@ -168,12 +168,9 @@ export default function Home() {
                 src={image}
                 alt={`Hero background ${index + 1}`}
                 className="home-hero__slide"
-                loading={index === 0 ? 'eager' : 'lazy'}
+                loading="eager"
                 fetchPriority={index === 0 ? 'high' : 'auto'}
-                style={{
-                  opacity: imagesLoaded ? 1 : 0,
-                  transition: 'opacity 0.5s ease',
-                }}
+                onError={(e) => console.warn('Hero image failed to load:', image, e)}
               />
             ))}
           </div>
@@ -228,22 +225,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right column — badge + card stacked */}
+          {/* Right column — Project Highlights card */}
           <aside className="home-hero__aside hero-anim hero-anim--card">
-            {/* RERA badge */}
-            <div className="home-hero__rera-badge">
-              <div className="home-hero__rera-badge-text">
-                <strong>MAHA RERA NO.</strong>
-                <span>P51800034810</span>
-                <em>www.maharera.maharashtra.gov.in</em>
-              </div>
-              <img
-                src="/images/QRCODE.png"
-                alt="MahaRERA QR Code"
-                className="home-hero__rera-badge-qr"
-              />
-            </div>
-
             {/* Project Highlights card */}
             <div className="home-hero__floating-card">
               <strong>Project Highlights</strong>
@@ -255,7 +238,7 @@ export default function Home() {
 
               <span>
                 <Icon name="lift" size={16} />
-                G+40 Storeys
+                B1+B2+G+ 40 Storeys
               </span>
 
               <span>
@@ -268,14 +251,33 @@ export default function Home() {
                 Possession — Dec 2029
               </span>
 
-              <span className="home-hero__offer">
-                <span className="home-hero__offer-tag">Limited Offer</span>
+              <span>
                 <Icon name="percent" size={16} />
-                <span className="home-hero__offer-text">
-                  Pay Only <strong>9%</strong> Registration
-                  <em>*T&amp;C apply</em>
-                </span>
+                Value for Money — Pay Less, Get More
               </span>
+
+              <div className="offer-ticket">
+                <span className="offer-ticket__ribbon">Independence Offer</span>
+
+                <div className="offer-ticket__main">
+                  <span className="offer-ticket__icon">
+                    <Icon name="percent" size={20} />
+                  </span>
+
+                  <span className="offer-ticket__copy">
+                    <span className="offer-ticket__pay">Pay Only</span>
+                    <span className="offer-ticket__pct">9%</span>
+                    <span className="offer-ticket__reg">Registration</span>
+                  </span>
+                </div>
+
+                <span className="offer-ticket__perf" aria-hidden="true" />
+
+                <div className="offer-ticket__foot">
+                  <span className="offer-ticket__tricolor" aria-hidden="true" />
+                  <em>*T&amp;C apply</em>
+                </div>
+              </div>
             </div>
           </aside>
         </div>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BackToTop from './components/BackToTop';
@@ -16,6 +17,25 @@ import Contact from './pages/Contact';
 // scroll. The navbar / footer links smooth-scroll to these ids instead of
 // navigating to separate routes.
 export default function App() {
+  // Har fresh load/refresh pe hamesha Home (top) se shuru ho — chahe URL
+  // me koi purana #hash (jaise #amenities) hi kyun na ho, ya browser ne
+  // apni purani scroll position yaad rakhi ho.
+  useEffect(() => {
+    // Browser ko apni default scroll-restoration (back/forward pe) yaad
+    // rakhne se rokte hain, taaki hum khud control kar sakein.
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    // Agar URL me hash hai (jaise site.com/#amenities), use hata do taaki
+    // browser wahan auto-scroll na kare.
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Navbar />

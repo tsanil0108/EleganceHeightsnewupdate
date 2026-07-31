@@ -7,7 +7,7 @@ const toId = (text) => text.toLowerCase().trim().replace(/\s+/g, '-');
 export default function SectionDivider({
   from = 'Home',
   label = 'SGF',
-  bgImage = '/images/building.png',
+  bgImage = '',
 }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
