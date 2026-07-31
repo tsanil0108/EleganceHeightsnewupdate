@@ -5,7 +5,6 @@ import Icon from '../components/Icon';
 import scrollToHash from '../utils/scroll';
 import QuickFactsBar from '../components/QuickFactsBar';
 import FeatureStrip from '../components/FeatureStrip';
-import FloorPlanCard from '../components/FloorPlanCard';
 import InHouseConvenience from '../components/InHouseConvenience';
 import useScrollReveal from '../hooks/useScrollReveal';
 import {
@@ -13,14 +12,12 @@ import {
   amenities,
   projectQuickFacts,
   projectFeatureStrip,
-  floorPlans,
   siteInfo,
 } from '../data/siteData';
 import './Project.css';
 
 export default function Project() {
   const [specsRef, specsVisible] = useScrollReveal();
-  const [floorPlanRef, floorPlanVisible] = useScrollReveal({ threshold: 0.1 });
   const [amenitiesRef, amenitiesVisible] = useScrollReveal();
   const [videoRef, videoVisible] = useScrollReveal({ threshold: 0.25 });
 
@@ -92,24 +89,6 @@ export default function Project() {
                 <span>{spec.label}</span>
                 <strong>{spec.value}</strong>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Floor plan preview cards */}
-      <section className="section project-floorplans">
-        <div className="container">
-          <div className="section-head center">
-            <span className="eyebrow" style={{ justifyContent: 'center' }}>Floor Plans</span>
-            <h2>Homes Designed for Every Family</h2>
-          </div>
-          <div
-            ref={floorPlanRef}
-            className={`floor-plan-grid ${floorPlanVisible ? 'is-visible' : ''}`}
-          >
-            {floorPlans.map((plan, i) => (
-              <FloorPlanCard plan={plan} index={i} key={plan.id} />
             ))}
           </div>
         </div>

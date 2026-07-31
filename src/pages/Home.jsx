@@ -238,7 +238,7 @@ export default function Home() {
 
               <span>
                 <Icon name="lift" size={16} />
-                B1+B2+G+ 40 Storeys
+                G +40 + Double Basement
               </span>
 
               <span>

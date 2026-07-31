@@ -147,7 +147,7 @@ export const experienceBeforeYouBuy = {
 
 // Project hero quick-facts row (matches brochure cover: G+40 Storey Tower / Malad East / Affordable Luxury / 1&2 BHK)
 export const projectQuickFacts = [
-  { icon: 'building', label: 'B1+B2+G+40 Storey Tower' },
+  { icon: 'building', label: 'G + 40 + Double Basement' },
   { icon: 'pin', label: 'Prime Location — Malad East' },
   { icon: 'diamond', label: 'Affordable Luxury, Premium Living' },
   { icon: 'home', label: '1 & 2 BHK Spacious Homes' },
@@ -252,7 +252,7 @@ export const projectWhyList = [
 export const projectSpecs = [
   { label: 'Location', value: 'Malad East, Mumbai' },
   { label: 'Configuration', value: '1 & 2 BHK Residences' },
-  { label: 'Towers', value: '1 Tower, G+40 Storeys' },
+  { label: 'Towers', value: '1 Tower, G +40 + Double Basement' },
   { label: 'Total Units', value: '224 Homes' },
   { label: 'Possession', value: 'Dec 2029' },
   { label: 'RERA No.', value: 'P51800034810' },
