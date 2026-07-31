@@ -8,31 +8,31 @@ import './InHouseConvenience.css';
 // ============================================================
 const conveniences = [
   {
-    title: 'Milk Vendor',
+    title: ' Inhouse Milk Vendor',
     image: '/images/MilkVendor.jpeg',
     icon: 'M6 2h6l1 3v2a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V5l1-3zM7 10v10a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V10',
     description: 'Fresh dairy delivered daily to your doorstep — never run out of milk again.',
   },
   {
-    title: 'Vegetable Vendor',
+    title: ' InhouseVegetable Vendor',
     image: '/images/vegetables.png',
     icon: 'M12 2c1 3 4 4 4 8a4 4 0 0 1-8 0c0-4 3-5 4-8zM12 6v14',
     description: 'Farm-fresh vegetables available in-house, handpicked every single morning.',
   },
   {
-    title: 'Fresh Fruits',
+    title: ' InhouseFresh Fruits',
     image: '/images/Fruits.png',
     icon: 'M12 6c2-2 6-1 6 3 0 5-4 11-6 11S6 14 6 9c0-4 4-5 6-3zM12 6c0-2 1-3 3-4',
     description: 'Seasonal fruits sourced fresh, right within your residential complex.',
   },
   {
-    title: 'Laundry Service',
+    title: ' InhouseLaundry Service',
     image: '/images/Laundary.png',
     icon: 'M5 3h14v18H5zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM8 6h.01',
     description: 'Professional wash, dry and fold — pickup and delivery from your floor.',
   },
   {
-    title: 'Daily Grocery',
+    title: ' InhouseDaily Grocery',
     image: '/images/DailyGrocery.png',
     icon: 'M4 6h16l-1.5 10.5a2 2 0 0 1-2 1.5H7.5a2 2 0 0 1-2-1.5L4 6zM9 10v4M15 10v4',
     description: 'A well-stocked mini-mart for all your everyday household needs.',
@@ -76,9 +76,9 @@ export default function InHouseConvenience() {
   return (
     <section className="section ihc" ref={rootRef}>
       <div className="container">
-        <div className="section-head center">
-          <span className="eyebrow" style={{ justifyContent: 'center' }}>In-House Convenience</span>
-          <h2>Everyday Essentials, Right Downstairs</h2>
+        <div className="ihc__head-box">
+          <span className="ihc__eyebrow">In-House Convenience</span>
+          <h2 className="ihc__title">Everyday Essentials, Right Downstairs</h2>
           <p className="ihc__sub">
             No more running errands across town. Elegance Heights brings daily needs
             right inside your community.

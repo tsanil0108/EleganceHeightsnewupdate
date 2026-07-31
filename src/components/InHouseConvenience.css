@@ -1,8 +1,72 @@
-.ihc__sub {
-  max-width: 580px;
-  margin: 0.5rem auto 0;
+/* ============================================================
+   Section — gap ko control me rakhne ke liye apna padding,
+   parent ki generic ".section" spacing pe depend nahi karte.
+   ============================================================ */
+.ihc {
+  padding-top: var(--space-lg, 3rem);
+  padding-bottom: var(--space-xl, 5rem);
+}
+
+/* ---------- Head box — "In-House Convenience" ko bada + boxed look ---------- */
+.ihc__head-box {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto var(--space-lg);
+  padding: var(--space-lg) var(--space-lg);
   text-align: center;
-  font-size: 0.95rem;
+  background: linear-gradient(180deg, var(--color-white, #fff) 0%, var(--color-cream, #f7f3ea) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 16px);
+  box-shadow: var(--shadow-soft, 0 14px 34px rgba(0, 0, 0, 0.08));
+
+  opacity: 0;
+  transform: translateY(20px);
+  animation: ihcHeadIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes ihcHeadIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ihc__head-box::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 4px;
+  border-radius: 0 0 6px 6px;
+  background: var(--color-gold);
+}
+
+.ihc__eyebrow {
+  display: inline-block;
+  color: var(--color-gold);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.ihc__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  color: var(--color-ink);
+  line-height: 1.2;
+  margin-bottom: 0.9rem;
+}
+
+.ihc__sub {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.98rem;
+  line-height: 1.6;
   color: var(--color-text-muted);
 }
 
@@ -10,8 +74,8 @@
 .ihc-rows {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
-  margin-top: var(--space-xl);
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
 }
 
 /* ---------- One alternating row ---------- */
@@ -142,11 +206,18 @@
   .ihc-row__content p {
     max-width: none;
   }
+  .ihc__head-box {
+    padding: var(--space-md);
+  }
 }
 
 @media (max-width: 560px) {
+  .ihc {
+    padding-top: var(--space-md, 1.5rem);
+  }
   .ihc-rows {
-    gap: var(--space-lg);
+    gap: var(--space-md);
+    margin-top: var(--space-md);
   }
   .ihc-row__num {
     font-size: 1.5rem;
@@ -154,14 +225,22 @@
   .ihc-row__content h3 {
     font-size: 1.2rem;
   }
+  .ihc__eyebrow {
+    font-size: 0.9rem;
+  }
+  .ihc__title {
+    font-size: 1.6rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ihc-row,
   .ihc-row__img,
-  .ihc-row__icon {
+  .ihc-row__icon,
+  .ihc__head-box {
     transition: opacity 0.3s ease;
     transform: none;
     opacity: 1;
+    animation: none;
   }
 }

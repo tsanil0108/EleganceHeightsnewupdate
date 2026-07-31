@@ -10,7 +10,7 @@ import './Home.css';
 
 // Hero background images
 const heroImages = [
-  '/images/building1.png',
+  '/images/building.png',
   // '/images/building2.png',
   // '/images/building.png',
 ];
@@ -267,7 +267,7 @@ export default function Home() {
                   <span className="offer-ticket__copy">
                     <span className="offer-ticket__pay">Pay Only</span>
                     <span className="offer-ticket__pct">9%</span>
-                    <span className="offer-ticket__reg">Registration</span>
+                    <span className="offer-ticket__reg">Registration*</span>
                   </span>
                 </div>
 

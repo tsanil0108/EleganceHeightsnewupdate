@@ -223,24 +223,34 @@
   gap: var(--space-md);
   max-width: 780px;
   margin: 0 auto;
+  align-items: start;
+  overflow: visible;
 }
 
 /* ------------------------------------------------------------------ */
-/* Amenities snapshot — hover/tap se image reveal                     */
+/* Amenities snapshot — NETFLIX-STYLE hover card                      */
+/* Poora card hi scale ho kar grid se bahar nikalta hai, baaki cards  */
+/* ke upar overlap karta hai — sirf image nahi, poora tile grow hota  */
+/* hai jaise Netflix ke row-hover preview cards.                      */
 /* ------------------------------------------------------------------ */
 
 .project-amenities-teaser__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-sm);
+  overflow: visible;
+  /* Netflix jaisa "row" feel — thoda breathing room upar/neeche taaki
+     scaled card clip na ho parent section se */
+  padding: 2.5rem 0;
+  margin: -2.5rem 0;
 }
 
 .project-amenities-teaser__item {
   position: relative;
-  overflow: hidden;
+  overflow: hidden;              /* image apne hi tile ke andar crop rahegi */
   min-height: 120px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;         /* label neeche settle ho, Netflix jaisa */
   justify-content: center;
   background: var(--color-white);
   border: 1px solid var(--color-border);
@@ -252,30 +262,57 @@
   color: var(--color-ink);
   cursor: pointer;
 
+  transform-origin: center center;
+  will-change: transform;
+  transition:
+    opacity 0.5s ease,
+    transform 0.35s cubic-bezier(0.34, 1.15, 0.64, 1),
+    box-shadow 0.35s ease,
+    border-color 0.3s ease,
+    z-index 0s;
+
   opacity: 0;
+  z-index: 1;
+}
+
+/* Entrance animation (scroll reveal) ke liye alag transform track rakhte
+   hain taaki hover-scale ke saath conflict na ho */
+.project-amenities-teaser__grid:not(.is-visible) .project-amenities-teaser__item {
   transform: translateY(16px) scale(0.97);
-  transition: opacity 0.5s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-amenities-teaser__grid.is-visible .project-amenities-teaser__item {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
-.project-amenities-teaser__item:hover,
-.project-amenities-teaser__item.is-open {
+/* Grid ke pehle column ka card left se grow kare (right ki taraf nikle),
+   last column ka card right se grow kare (left ki taraf nikle) — taaki
+   card viewport se bahar na chala jaaye. Beech waale center se grow. */
+.project-amenities-teaser__item:nth-child(4n + 1) {
+  transform-origin: left center;
+}
+.project-amenities-teaser__item:nth-child(4n) {
+  transform-origin: right center;
+}
+
+/* ---- HOVER / OPEN: Netflix-style pop ---- */
+.project-amenities-teaser__grid.is-visible .project-amenities-teaser__item:hover,
+.project-amenities-teaser__grid.is-visible .project-amenities-teaser__item.is-open {
+  transform: translateY(0) scale(1.22);
+  z-index: 8;
   border-color: var(--color-gold);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 30px 70px rgba(15, 24, 31, 0.4);
+  transition-delay: 0.08s;   /* thoda pause, Netflix jaisa "intent" feel */
 }
 
-/* Background image — hidden by default, hover ya tap pe fade/scale in hoti hai */
 .project-amenities-teaser__img {
   position: absolute;
   inset: 0;
   z-index: 0;
   opacity: 0;
-  transform: scale(1.1);
-  transition: opacity 0.35s ease, transform 0.6s ease;
+  transform: scale(1.08);
+  transition: opacity 0.35s ease, transform 0.5s ease;
 }
 
 .project-amenities-teaser__img img {
@@ -285,21 +322,21 @@
   display: block;
 }
 
+.project-amenities-teaser__item:hover .project-amenities-teaser__img,
+.project-amenities-teaser__item.is-open .project-amenities-teaser__img {
+  opacity: 1;
+  transform: scale(1);
+}
+
 /* Dark gradient so text readable jab image dikhe */
 .project-amenities-teaser__item::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(18, 24, 31, 0) 25%, rgba(18, 24, 31, 0.78) 100%);
+  background: linear-gradient(180deg, rgba(18, 24, 31, 0) 30%, rgba(18, 24, 31, 0.85) 100%);
   opacity: 0;
   transition: opacity 0.35s ease;
-}
-
-.project-amenities-teaser__item:hover .project-amenities-teaser__img,
-.project-amenities-teaser__item.is-open .project-amenities-teaser__img {
-  opacity: 1;
-  transform: scale(1);
 }
 
 .project-amenities-teaser__item:hover::after,
@@ -310,13 +347,13 @@
 .project-amenities-teaser__label {
   position: relative;
   z-index: 2;
+  text-align: center;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .project-amenities-teaser__item:hover .project-amenities-teaser__label,
 .project-amenities-teaser__item.is-open .project-amenities-teaser__label {
   color: #fff;
-  transform: translateY(6px);
 }
 
 .project-amenities-teaser__more {
@@ -431,6 +468,20 @@
   .project-amenities-teaser__grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* 2-column grid pe nth-child(4n) logic sahi nahi baithta — 2 column
+     ke liye odd/even se transform-origin set karte hain */
+  .project-amenities-teaser__item:nth-child(4n + 1) {
+    transform-origin: center center;
+  }
+  .project-amenities-teaser__item:nth-child(4n) {
+    transform-origin: center center;
+  }
+  .project-amenities-teaser__item:nth-child(2n + 1) {
+    transform-origin: left center;
+  }
+  .project-amenities-teaser__item:nth-child(2n) {
+    transform-origin: right center;
+  }
   .project-video__frame {
     aspect-ratio: 16/9;
   }
@@ -453,6 +504,11 @@
     width: 56px;
     height: 56px;
   }
+  /* Mobile pe Netflix-scale kam rakhte hain, warna layout tootega */
+  .project-amenities-teaser__grid.is-visible .project-amenities-teaser__item:hover,
+  .project-amenities-teaser__grid.is-visible .project-amenities-teaser__item.is-open {
+    transform: scale(1.08);
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -464,9 +520,15 @@
   .project-highlights__text,
   .project-highlights__list li,
   .project-amenities-teaser__item,
+  .project-amenities-teaser__img,
   .project-video__frame {
     transition: none;
     opacity: 1;
+    transform: none;
+  }
+
+  .project-amenities-teaser__grid.is-visible .project-amenities-teaser__item:hover,
+  .project-amenities-teaser__grid.is-visible .project-amenities-teaser__item.is-open {
     transform: none;
   }
 }

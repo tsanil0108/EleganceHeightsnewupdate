@@ -108,7 +108,7 @@ export const premiumUSPs = [
   },
   {
     icon: 'percent',
-    title: 'Pay Only 9% GST*',
+    title: 'Pay Only 9% + GST*',
     description: 'A limited-period promotional benefit that lowers your effective acquisition cost on select homes.',
     note: '*Conditions apply. Final GST applicability as per current government scheme, confirmed at the time of booking.',
   },

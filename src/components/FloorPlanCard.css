@@ -1,14 +1,16 @@
 .floor-plan-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-  transition: opacity 0.55s ease, transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
+  overflow: visible;
+  cursor: pointer;
 
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.35s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .floor-plan-grid.is-visible .floor-plan-card {
@@ -16,18 +18,23 @@
   transform: translateY(0);
 }
 
-.floor-plan-grid.is-visible .floor-plan-card:hover {
-  transform: translateY(-10px) scale(1.035);
-  box-shadow: 0 24px 48px rgba(15, 36, 25, 0.22);
+/* Hover/open state — poora card thoda upar uthta hai aur baaki cards ke upar aa jaata hai */
+.floor-plan-card:hover,
+.floor-plan-card.is-open {
+  box-shadow: 0 24px 60px rgba(15, 36, 25, 0.18);
   border-color: var(--color-gold);
-  z-index: 2;
+  transform: translateY(-4px);
+  z-index: 5;
 }
 
+/* ---- Image block — pop-out effect yahin hota hai ---- */
 .floor-plan-card__image {
   position: relative;
   aspect-ratio: 4/3;
-  overflow: hidden;
-  background: var(--color-cream-dark);
+  overflow: visible;
+  background: var(--color-cream);
+  flex-shrink: 0;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 
 .floor-plan-card__image img {
@@ -35,48 +42,61 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
+  border-radius: inherit;
+  position: relative;
+  transform-origin: center center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
 }
 
-.floor-plan-card:hover .floor-plan-card__image img {
-  transform: scale(1.08);
+/* Yahi hai "pop out" — image apne box se bahar nikal kar bada dikhega */
+.floor-plan-card:hover .floor-plan-card__image img,
+.floor-plan-card.is-open .floor-plan-card__image img {
+  transform: scale(1.28);
+  box-shadow: 0 30px 60px rgba(15, 36, 25, 0.35);
+  z-index: 3;
 }
 
 .floor-plan-card__badge {
   position: absolute;
-  top: var(--space-sm);
-  left: var(--space-sm);
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 4;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
   background: var(--color-ink);
   color: var(--color-gold);
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.04em;
-  padding: 0.35rem 0.7rem;
-  border-radius: var(--radius-sm);
-  transition: box-shadow 0.35s ease, transform 0.35s ease;
+  text-transform: uppercase;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.floor-plan-card:hover .floor-plan-card__badge {
-  box-shadow: 0 0 0 1px rgba(201, 162, 39, 0.5), 0 6px 16px rgba(201, 162, 39, 0.35);
-  transform: translateY(-2px);
+.floor-plan-card:hover .floor-plan-card__badge,
+.floor-plan-card.is-open .floor-plan-card__badge {
+  transform: scale(1.28);
 }
 
+/* ---- Base body — hamesha visible ---- */
 .floor-plan-card__body {
-  padding: var(--space-md);
+  padding: 1.1rem 1.2rem 1.3rem;
+  position: relative;
+  z-index: 2;
+  background: var(--color-white);
 }
 
 .floor-plan-card__meta {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: var(--space-sm);
+  margin-bottom: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
 }
 
 .floor-plan-card__area {
-  font-family: var(--font-display);
+  font-weight: 700;
   color: var(--color-gold);
-  font-size: 1rem;
 }
 
 .floor-plan-card__dot {
@@ -86,23 +106,15 @@
   background: var(--color-border);
 }
 
-.floor-plan-card__config {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-}
-
 .floor-plan-card__link {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.85rem;
   font-weight: 600;
+  font-size: 0.9rem;
   color: var(--color-ink);
-  transition: gap var(--transition), color var(--transition);
-}
-
-.floor-plan-card__link svg {
-  transition: transform var(--transition);
+  text-decoration: none;
+  transition: gap 0.25s ease, color 0.25s ease;
 }
 
 .floor-plan-card__link:hover {
@@ -110,15 +122,134 @@
   gap: 0.6rem;
 }
 
-.floor-plan-card__link:hover svg {
-  transform: translateX(3px);
+/* ---- Full detail panel — hover/tap pe expand hota hai ---- */
+.floor-plan-card__details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease;
+  border-top: 1px solid transparent;
+  position: relative;
+  z-index: 2;
+  background: var(--color-white);
+}
+
+.floor-plan-card:hover .floor-plan-card__details,
+.floor-plan-card.is-open .floor-plan-card__details {
+  max-height: 480px;
+  border-top-color: var(--color-border);
+}
+
+.floor-plan-card__details-inner {
+  padding: 1.1rem 1.2rem 1.3rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s;
+}
+
+.floor-plan-card:hover .floor-plan-card__details-inner,
+.floor-plan-card.is-open .floor-plan-card__details-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.floor-plan-card__eyebrow {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.floor-plan-card__title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0 0 0.6rem;
+}
+
+.floor-plan-card__desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0 0 0.9rem;
+}
+
+.floor-plan-card__pills {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.floor-plan-card__pill {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: #faf9f5;
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.floor-plan-card__pill:hover {
+  border-color: var(--color-gold);
+  background: #fffdf6;
+}
+
+.floor-plan-card__pill div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.floor-plan-card__pill strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.floor-plan-card__pill span {
+  font-size: 0.66rem;
+  color: var(--color-text-muted);
+}
+
+.floor-plan-card__pill--link strong {
+  color: var(--color-gold-dark);
+}
+
+.floor-plan-card__cta {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f0c846, #d9a817);
+  color: var(--color-ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floor-plan-card__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(214, 166, 22, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .floor-plan-card,
-  .floor-plan-card__image img {
-    transition: none;
-    opacity: 1;
+  .floor-plan-card__image img,
+  .floor-plan-card__badge,
+  .floor-plan-card__details,
+  .floor-plan-card__details-inner,
+  .floor-plan-card__cta {
+    transition: none !important;
+  }
+
+  .floor-plan-card:hover .floor-plan-card__image img,
+  .floor-plan-card.is-open .floor-plan-card__image img {
     transform: none;
   }
 }
