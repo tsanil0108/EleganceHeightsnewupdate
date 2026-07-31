@@ -128,6 +128,23 @@ export default function Project() {
             <Button to="#amenities" variant="outline">Explore All Amenities</Button>
           </div>
         </div>
+
+        {/* Fixed lightbox-style preview — Amenities page jaisa, poori screen ke
+            center mein bade size ki uncropped image, grid ke clipping se bahar */}
+        <div className={`project-amenities-teaser__preview ${activeAmenity !== null ? 'is-open' : ''}`}>
+          {activeAmenity !== null && amenities[activeAmenity]?.image && (
+            <div className="project-amenities-teaser__preview-card">
+              <img
+                src={amenities[activeAmenity].image}
+                alt={amenities[activeAmenity].title}
+                className="project-amenities-teaser__preview-img"
+              />
+              <div className="project-amenities-teaser__preview-caption">
+                <strong>{amenities[activeAmenity].title}</strong>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
 
       {/* In-house daily-needs vendors — video ke UPAR, naya tile-grid look */}

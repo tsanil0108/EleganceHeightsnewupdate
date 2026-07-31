@@ -299,7 +299,7 @@
 /* ---- HOVER / OPEN: Netflix-style pop ---- */
 .project-amenities-teaser__grid.is-visible .project-amenities-teaser__item:hover,
 .project-amenities-teaser__grid.is-visible .project-amenities-teaser__item.is-open {
-  transform: translateY(0) scale(1.22);
+  transform: translateY(0) scale(1.35);
   z-index: 8;
   border-color: var(--color-gold);
   box-shadow: 0 30px 70px rgba(15, 24, 31, 0.4);
@@ -312,7 +312,7 @@
   z-index: 0;
   opacity: 0;
   transform: scale(1.08);
-  transition: opacity 0.35s ease, transform 0.5s ease;
+  transition: opacity 0.35s ease, transform 0.5s ease, background 0.3s ease;
 }
 
 .project-amenities-teaser__img img {
@@ -322,10 +322,17 @@
   display: block;
 }
 
+/* ---- Hover/open: image poori (uncropped) dikhti hai ---- */
 .project-amenities-teaser__item:hover .project-amenities-teaser__img,
 .project-amenities-teaser__item.is-open .project-amenities-teaser__img {
   opacity: 1;
   transform: scale(1);
+  background: var(--color-ink);
+}
+
+.project-amenities-teaser__item:hover .project-amenities-teaser__img img,
+.project-amenities-teaser__item.is-open .project-amenities-teaser__img img {
+  object-fit: contain;
 }
 
 /* Dark gradient so text readable jab image dikhe */
@@ -359,6 +366,82 @@
 .project-amenities-teaser__more {
   text-align: center;
   margin-top: var(--space-lg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Fixed lightbox-style preview — Amenities page jaisa. Poori screen ke */
+/* center mein bade size ki uncropped image dikhti hai, grid se poori   */
+/* tarah escape karti hai (koi parent clipping/overflow issue nahi).    */
+/* ------------------------------------------------------------------ */
+
+.project-amenities-teaser__preview {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: rgba(18, 24, 31, 0);
+  transition: background 0.3s ease;
+}
+
+.project-amenities-teaser__preview.is-open {
+  background: rgba(18, 24, 31, 0.55);
+}
+
+.project-amenities-teaser__preview-card {
+  width: min(64vw, 760px);
+  max-height: 82vh;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-ink);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+  transform: scale(0.9);
+  animation: projectAmenityPreviewIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes projectAmenityPreviewIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.project-amenities-teaser__preview-img {
+  display: block;
+  width: 100%;
+  max-height: 62vh;
+  object-fit: cover;
+}
+
+.project-amenities-teaser__preview-caption {
+  padding: 1.1rem 1.4rem;
+  background: linear-gradient(135deg, #12181f 0%, #1c2531 100%);
+}
+
+.project-amenities-teaser__preview-caption strong {
+  color: var(--color-cream);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+@media (max-width: 560px) {
+  .project-amenities-teaser__preview-card {
+    width: 90vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-amenities-teaser__preview,
+  .project-amenities-teaser__preview-card {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* ------------------------------------------------------------------ */
