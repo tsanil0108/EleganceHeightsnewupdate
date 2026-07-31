@@ -162,7 +162,7 @@ export const projectFeatureStrip = [
   { icon: 'solar', label: 'Solar Powered Common Area For Lights & Ventilation' },
   { icon: 'waste', label: 'Waste Management System' },
   { icon: 'drop', label: 'Rain Water Harvesting & Sewage Treatment Plant' },
-  { icon: 'wifi', label: 'Wi-Fi common area' },
+  { icon: 'wifi', label: 'Wi-Fi enabled common area' },
 ];
 
 // Project highlights strip (matches PDF: Italian Marble Lobby / Amenities / Connectivity / etc.)
