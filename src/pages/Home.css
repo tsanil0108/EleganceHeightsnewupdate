@@ -72,6 +72,8 @@
   to { opacity: 1; }
 }
 
+/* Overlay ka kaam sirf left-side text readability ke liye halka fade dena hai —
+   image khud clean aur clear dikhni chahiye, isliye opacity kam rakhi hai. */
 .home-hero__overlay {
   position: absolute;
   inset: 0;
@@ -79,11 +81,11 @@
   pointer-events: none;
   background: linear-gradient(
     90deg,
-    rgba(251, 248, 241, 0.96) 0%,
-    rgba(251, 248, 241, 0.82) 26%,
-    rgba(251, 248, 241, 0.25) 50%,
-    rgba(251, 248, 241, 0.05) 68%,
-    rgba(251, 248, 241, 0.2) 100%
+    rgba(251, 248, 241, 0.22) 0%,
+    rgba(251, 248, 241, 0.1) 26%,
+    rgba(251, 248, 241, 0) 50%,
+    rgba(251, 248, 241, 0) 68%,
+    rgba(251, 248, 241, 0) 100%
   );
 }
 
@@ -631,9 +633,9 @@
   .home-hero__overlay {
     background: linear-gradient(
       180deg,
-      rgba(251, 248, 241, 0.88) 0%,
-      rgba(251, 248, 241, 0.6) 46%,
-      rgba(251, 248, 241, 0.94) 100%
+      rgba(251, 248, 241, 0.18) 0%,
+      rgba(251, 248, 241, 0.06) 46%,
+      rgba(251, 248, 241, 0.4) 100%
     );
   }
 
@@ -684,14 +686,16 @@
     object-position: center 20%;
   }
 
+  /* Mobile pe bhi overlay halka rakha — image saaf dikhni chahiye,
+     bas neeche card readable rahe */
   .home-hero__overlay {
     background: linear-gradient(
       180deg,
-      rgba(251, 248, 241, 0.55) 0%,
-      rgba(251, 248, 241, 0.22) 35%,
-      rgba(251, 248, 241, 0.15) 55%,
-      rgba(251, 248, 241, 0.75) 72%,
-      rgba(251, 248, 241, 0.98) 100%
+      rgba(251, 248, 241, 0.06) 0%,
+      rgba(251, 248, 241, 0) 35%,
+      rgba(251, 248, 241, 0) 55%,
+      rgba(251, 248, 241, 0.2) 72%,
+      rgba(251, 248, 241, 0.6) 100%
     );
   }
 
