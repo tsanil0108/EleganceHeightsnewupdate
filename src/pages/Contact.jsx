@@ -132,6 +132,11 @@ export default function Contact() {
       setSubmitted(true);
       setFormData(INITIAL_FORM_DATA);
 
+      // Fire Google Ads conversion event only on successful form submit
+      window.gtag?.('event', 'conversion', {
+        send_to: 'AW-18372892151/CONVERSION_LABEL',
+      });
+
       setTimeout(() => {
         setSubmitted(false);
       }, 5000);
