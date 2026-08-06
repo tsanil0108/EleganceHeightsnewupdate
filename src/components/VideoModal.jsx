@@ -31,6 +31,7 @@ export default function VideoModal({ src, onClose }) {
           src={src}
           controls
           autoPlay
+          muted
           playsInline
         />
       </div>
