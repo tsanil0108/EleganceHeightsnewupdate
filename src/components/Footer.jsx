@@ -23,7 +23,14 @@ export default function Footer() {
           </div>
           <p>Spacious 1 &amp; 2 BHK homes designed for elevated suburban living, by SGF Enterprises.</p>
           <div className="footer__socials">
-            <a href="https://www.instagram.com/elegance.heights?igsh=MXg3NDFza2JmNjBmaw==" aria-label="Instagram" onClick={(e) => e.preventDefault()}>IG</a>
+            <a
+              href="https://www.instagram.com/elegance.heights?igsh=MXg3NDFza2JmNjBmaw=="
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              IG
+            </a>
             <a href="#" aria-label="Facebook" onClick={(e) => e.preventDefault()}>FB</a>
             <a href="#" aria-label="LinkedIn" onClick={(e) => e.preventDefault()}>IN</a>
           </div>
