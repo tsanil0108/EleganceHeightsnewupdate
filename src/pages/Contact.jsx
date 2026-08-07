@@ -134,7 +134,9 @@ export default function Contact() {
 
       // Fire Google Ads conversion event only on successful form submit
       window.gtag?.('event', 'conversion', {
-        send_to: 'AW-18372892151/Hgj3CJyYit0cEPer8LhE',
+        send_to: 'AW-18372892151/_sHBCI_W89wcEPer8LhE',
+        value: 1.0,
+        currency: 'INR',
       });
 
       setTimeout(() => {
