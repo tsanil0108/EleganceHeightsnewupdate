@@ -31,7 +31,14 @@ export default function Footer() {
             >
               IG
             </a>
-            <a href="#" aria-label="Facebook" onClick={(e) => e.preventDefault()}>FB</a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61588702091366"
+              aria-label="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              FB
+            </a>
             <a href="#" aria-label="LinkedIn" onClick={(e) => e.preventDefault()}>IN</a>
           </div>
         </div>
